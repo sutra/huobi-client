@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.redv.huobi.domain.Depth;
+import com.redv.huobi.domain.Funds;
 import com.redv.huobi.domain.LoginResult;
 import com.redv.huobi.valuereader.LoginResultReader;
 import com.redv.huobi.valuereader.VoidValueReader;
@@ -66,6 +67,12 @@ public class HUOBIClient {
 		}
 
 		return httpClient.get(depthUri, Depth.class);
+	}
+
+	public Funds getFunds() throws IOException {
+		LoginResult loginResult = httpClient.get(HTTPS_BASE,
+				new LoginResultReader());
+		return loginResult.getFunds();
 	}
 
 	/**

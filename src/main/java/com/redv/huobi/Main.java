@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.redv.huobi.domain.Depth;
 import com.redv.huobi.domain.Depth.Marketdepth.Data;
+import com.redv.huobi.domain.Funds;
 
 public class Main {
 
@@ -17,8 +18,11 @@ public class Main {
 		final String password = args[1];
 
 		HUOBIClient client = new HUOBIClient(email, password);
+
+		// Login
 		client.login();
 
+		// Depth
 		Depth depth = client.getDepth();
 		log.debug("Depth: {}", depth);
 
@@ -29,6 +33,10 @@ public class Main {
 		for (Data ask : depth.getAsks()) {
 			log.debug("Ask: {}", ask.getPrice());
 		}
+
+		// Funds
+		Funds funds = client.getFunds();
+		log.debug("Funds: {}", funds);
 	}
 
 }
