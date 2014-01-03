@@ -2,10 +2,13 @@ package com.redv.huobi.valuereader;
 
 import java.math.BigDecimal;
 
+import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.html.HTMLDocument;
 import org.w3c.dom.html.HTMLElement;
+import org.w3c.dom.html.HTMLFormElement;
 
+import com.redv.huobi.LoginRequiredException;
 import com.redv.huobi.domain.Funds;
 import com.redv.huobi.domain.LoginResult;
 
@@ -15,7 +18,12 @@ public class LoginResultReader extends HTMLReader<LoginResult> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected LoginResult parse(HTMLDocument document) {
+	protected LoginResult parse(HTMLDocument document) throws LoginRequiredException {
+		Element loginForm = document.getElementById("login");
+		if (loginForm instanceof HTMLFormElement) {
+			throw new LoginRequiredException();
+		}
+
 		final LoginResult loginResult = new LoginResult();
 		final Funds funds = new Funds();
 		loginResult.setFunds(funds);

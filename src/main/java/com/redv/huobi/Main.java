@@ -19,6 +19,13 @@ public class Main {
 
 		HUOBIClient client = new HUOBIClient(email, password);
 
+		// Get funds before login
+		try {
+			client.getFunds();
+		} catch (LoginRequiredException e) {
+			log.debug("login required.");
+		}
+
 		// Login
 		client.login();
 

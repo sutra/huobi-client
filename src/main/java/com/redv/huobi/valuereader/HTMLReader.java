@@ -15,6 +15,8 @@ import org.w3c.dom.html.HTMLDocument;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.redv.huobi.HUOBIClientException;
+
 public abstract class HTMLReader<T> implements ValueReader<T>{
 
 	private final Logger log = LoggerFactory.getLogger(HTMLReader.class);
@@ -25,13 +27,19 @@ public abstract class HTMLReader<T> implements ValueReader<T>{
 		log.debug("Parsing HTML: {}", content);
 		try {
 			return parse(content);
-		} catch (Exception e) {
+		} catch (HUOBIClientException e) {
+			throw e;
+		} catch (IOException e) {
+			log.error("Parse from \"{}\" failed.", content);
+			throw e;
+		} catch (SAXException e) {
 			String msg = String.format("Parse from \"%1$s\" failed.", content);
 			throw new IOException(msg, e);
 		}
 	}
 
-	protected abstract T parse(HTMLDocument document);
+	protected abstract T parse(HTMLDocument document)
+			throws HUOBIClientException;
 
 	private T parse(String content) throws UnsupportedEncodingException,
 			IOException, SAXException {
