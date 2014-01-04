@@ -28,6 +28,15 @@ public class LoginResultReader extends HTMLReader<LoginResult> {
 		final Funds funds = new Funds();
 		loginResult.setFunds(funds);
 
+		boolean total = false,
+				netAsset = false,
+				availableCny = false,
+				availableBtc = false,
+				frozenCny = false,
+				frozenBtc = false,
+				loanCny = false,
+				loanBtc = false;
+
 		NodeList spanNodeList = document.getElementsByTagName("span");
 		for (int i = 0; i < spanNodeList.getLength(); i++) {
 			HTMLElement element = (HTMLElement) spanNodeList.item(i);
@@ -38,28 +47,52 @@ public class LoginResultReader extends HTMLReader<LoginResult> {
 				loginResult.setLevel(textContent.trim());
 				break;
 			case "user_total":
-				funds.setTotal(new BigDecimal(textContent));
+				if (!total) {
+					funds.setTotal(new BigDecimal(textContent));
+					total = true;
+				}
 				break;
 			case "user_net_asset":
-				funds.setNetAsset(new BigDecimal(textContent));
+				if (!netAsset) {
+					funds.setNetAsset(new BigDecimal(textContent));
+					netAsset = true;
+				}
 				break;
 			case "user_available_cny":
-				funds.setAvailableCny(new BigDecimal(textContent));
+				if (!availableCny) {
+					funds.setAvailableCny(new BigDecimal(textContent));
+					availableCny = true;
+				}
 				break;
 			case "user_available_btc":
-				funds.setAvailableBtc(new BigDecimal(textContent));
+				if (!availableBtc) {
+					funds.setAvailableBtc(new BigDecimal(textContent));
+					availableBtc = true;
+				}
 				break;
 			case "user_frozen_cny":
-				funds.setFrozenCny(new BigDecimal(textContent));
+				if (!frozenCny) {
+					funds.setFrozenCny(new BigDecimal(textContent));
+					frozenCny = true;
+				}
 				break;
 			case "user_frozen_btc":
-				funds.setFrozenBtc(new BigDecimal(textContent));
+				if (!frozenBtc) {
+					funds.setFrozenBtc(new BigDecimal(textContent));
+					frozenBtc = true;
+				}
 				break;
 			case "user_loan_cny":
-				funds.setLoanCny(new BigDecimal(textContent));
+				if (!loanCny) {
+					funds.setLoanCny(new BigDecimal(textContent));
+					loanCny = true;
+				}
 				break;
 			case "user_loan_btc":
-				funds.setLoanBtc(new BigDecimal(textContent));
+				if (!loanBtc) {
+					funds.setLoanBtc(new BigDecimal(textContent));
+					loanBtc = true;
+				}
 				break;
 			default:
 				break;
