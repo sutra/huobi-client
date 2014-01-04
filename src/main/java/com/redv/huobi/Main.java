@@ -10,6 +10,7 @@ import com.redv.huobi.domain.Delegation;
 import com.redv.huobi.domain.Depth;
 import com.redv.huobi.domain.Depth.Marketdepth.Data;
 import com.redv.huobi.domain.Funds;
+import com.redv.huobi.domain.MyTradeInfo;
 
 public class Main {
 
@@ -46,6 +47,9 @@ public class Main {
 		// Funds
 		Funds funds = client.getFunds();
 		log.debug("Funds: {}", funds);
+
+		MyTradeInfo myTradeInfo = client.getMyTradeInfo();
+		log.debug("MyTradeInfo: {}", myTradeInfo);
 
 		// sell
 		// client.sell(new BigDecimal(99999), client.getMinAmountPerOrder());

@@ -21,6 +21,7 @@ import com.redv.huobi.domain.Delegation;
 import com.redv.huobi.domain.Depth;
 import com.redv.huobi.domain.Funds;
 import com.redv.huobi.domain.LoginResult;
+import com.redv.huobi.domain.MyTradeInfo;
 import com.redv.huobi.domain.TradeResult;
 import com.redv.huobi.domain.Type;
 import com.redv.huobi.valuereader.DelegationReader;
@@ -39,6 +40,8 @@ public class HUOBIClient {
 	private static final URI DEPTH_URI = URI.create("https://market.huobi.com/market/depth.php");
 
 	private static final URI TRADE_URI = URIUtils.resolve(HTTPS_BASE, "trade/index.php");
+
+	private static final URI ACCOUNT_AJAX_URI = URIUtils.resolve(HTTPS_BASE, "account/ajax.php");
 
 	private final Logger log = LoggerFactory.getLogger(HUOBIClient.class);
 
@@ -87,6 +90,19 @@ public class HUOBIClient {
 		LoginResult loginResult = httpClient.get(HTTPS_BASE,
 				new LoginResultReader());
 		return loginResult.getFunds();
+	}
+
+	public MyTradeInfo getMyTradeInfo() throws IOException {
+		URI uri;
+		try {
+			uri = new URIBuilder(ACCOUNT_AJAX_URI)
+				.setParameter("m", "my_trade_info")
+				.setParameter("r", String.valueOf(Math.random()))
+				.build();
+		} catch (URISyntaxException e) {
+			throw new IllegalArgumentException(e);
+		}
+		return httpClient.get(uri, MyTradeInfo.class);
 	}
 
 	public BigDecimal getMinAmountPerOrder() {
