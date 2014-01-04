@@ -4,18 +4,25 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.client.utils.URIUtils;
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.redv.huobi.domain.Depth;
 import com.redv.huobi.domain.Funds;
 import com.redv.huobi.domain.LoginResult;
-import com.redv.huobi.domain.TradeParam;
+import com.redv.huobi.domain.TradeResult;
 import com.redv.huobi.domain.Type;
+import com.redv.huobi.valuereader.JsonValueReader;
 import com.redv.huobi.valuereader.LoginResultReader;
 import com.redv.huobi.valuereader.VoidValueReader;
 
@@ -80,6 +87,10 @@ public class HUOBIClient {
 		return loginResult.getFunds();
 	}
 
+	public BigDecimal getMinAmountPerOrder() {
+		return new BigDecimal("0.0001");
+	}
+
 	public void buy(BigDecimal price, BigDecimal amount) throws IOException {
 		trade(Type.BUY, price, amount);
 	}
@@ -90,9 +101,22 @@ public class HUOBIClient {
 
 	private void trade(Type type, BigDecimal price, BigDecimal amount)
 			throws IOException {
-		String param = new TradeParam(type, price, amount).toJson();
-		log.debug("Trade param: {}", param);
-		httpClient.post(TRADE_URI, new VoidValueReader(), param, ENCODING);
+		List<NameValuePair> params = new ArrayList<>(3);
+		params.add(new BasicNameValuePair("a", type.toString()));
+		params.add(new BasicNameValuePair("price", price.toPlainString()));
+		params.add(new BasicNameValuePair("amount", amount.toPlainString()));
+
+		HttpPost post = new HttpPost(TRADE_URI);
+		post.setHeader("X-Requested-With", "XMLHttpRequest");
+		post.setEntity(new UrlEncodedFormEntity(params));
+
+		TradeResult tradeResult = httpClient.execute(
+				new JsonValueReader<>(new ObjectMapper(), TradeResult.class),
+				post);
+
+		if (tradeResult.getCode() != 0) {
+			throw new HUOBIClientException(tradeResult.getMsg());
+		}
 	}
 
 	/**
