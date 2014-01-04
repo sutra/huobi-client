@@ -44,7 +44,7 @@ public class DelegationReader extends HTMLReader<List<Delegation>> {
 
 		Node next = myDelegationLegend.getNextSibling();
 		if (next != null) {
-			next = myDelegationLegend.getNextSibling();
+			next = next.getNextSibling();
 		}
 
 		if (next != null) {
