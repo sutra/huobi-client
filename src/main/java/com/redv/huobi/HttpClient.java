@@ -16,6 +16,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.LaxRedirectStrategy;
@@ -81,6 +82,14 @@ public class HttpClient implements AutoCloseable {
 			List<NameValuePair> params) throws IOException {
 		HttpPost post = new HttpPost(uri);
 		post.setEntity(new UrlEncodedFormEntity(params));
+		return execute(uri, valueReader, post);
+	}
+
+	public <T> T post(URI uri, ValueReader<T> valueReader, String content,
+			String charset) throws IOException {
+		HttpPost post = new HttpPost(uri);
+		post.addHeader("X-Requested-With", "XMLHttpRequest");
+		post.setEntity(new StringEntity(content, charset));
 		return execute(uri, valueReader, post);
 	}
 

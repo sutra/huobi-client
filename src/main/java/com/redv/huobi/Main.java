@@ -1,6 +1,7 @@
 package com.redv.huobi;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,9 @@ public class Main {
 		// Funds
 		Funds funds = client.getFunds();
 		log.debug("Funds: {}", funds);
+
+		// buy
+		client.buy(new BigDecimal("0.1"), new BigDecimal("0.0001"));
 	}
 
 }

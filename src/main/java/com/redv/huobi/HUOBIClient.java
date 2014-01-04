@@ -1,6 +1,7 @@
 package com.redv.huobi;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -13,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import com.redv.huobi.domain.Depth;
 import com.redv.huobi.domain.Funds;
 import com.redv.huobi.domain.LoginResult;
+import com.redv.huobi.domain.TradeParam;
+import com.redv.huobi.domain.Type;
 import com.redv.huobi.valuereader.LoginResultReader;
 import com.redv.huobi.valuereader.VoidValueReader;
 
@@ -25,6 +28,8 @@ public class HUOBIClient {
 	private static final URI LOGIN_URI = URIUtils.resolve(HTTPS_BASE, "account/login.php");
 
 	private static final URI DEPTH_URI = URI.create("https://market.huobi.com/market/depth.php");
+
+	private static final URI TRADE_URI = URIUtils.resolve(HTTPS_BASE, "trade/index.php");
 
 	private final Logger log = LoggerFactory.getLogger(HUOBIClient.class);
 
@@ -73,6 +78,21 @@ public class HUOBIClient {
 		LoginResult loginResult = httpClient.get(HTTPS_BASE,
 				new LoginResultReader());
 		return loginResult.getFunds();
+	}
+
+	public void buy(BigDecimal price, BigDecimal amount) throws IOException {
+		trade(Type.BUY, price, amount);
+	}
+
+	public void sell(BigDecimal price, BigDecimal amount) throws IOException {
+		trade(Type.SELL, price, amount);
+	}
+
+	private void trade(Type type, BigDecimal price, BigDecimal amount)
+			throws IOException {
+		String param = new TradeParam(type, price, amount).toJson();
+		log.debug("Trade param: {}", param);
+		httpClient.post(TRADE_URI, new VoidValueReader(), param, ENCODING);
 	}
 
 	/**
