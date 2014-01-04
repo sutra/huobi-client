@@ -1,10 +1,12 @@
 package com.redv.huobi;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.redv.huobi.domain.Delegation;
 import com.redv.huobi.domain.Depth;
 import com.redv.huobi.domain.Depth.Marketdepth.Data;
 import com.redv.huobi.domain.Funds;
@@ -50,6 +52,15 @@ public class Main {
 
 		// buy
 		// client.buy(new BigDecimal("0.1"), client.getMinAmountPerOrder());
+
+		// getDelegations
+		List<Delegation> delegations = client.getDelegations();
+		for (Delegation delegation : delegations) {
+			log.debug("Delegation ID: {}", delegation.getId());
+		}
+
+		// Cancel
+		// client.cancel(1);
 	}
 
 }

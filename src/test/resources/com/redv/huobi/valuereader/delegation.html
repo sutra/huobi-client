@@ -1,0 +1,638 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>我的委托—火币网</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="shortcut icon" href="https://huobistatic.com/favicon.ico" type="image/x-icon">
+<!-- Bootstrap -->
+<link href="https://huobistatic.com/merged/css/bootstrap.min.css,css/huobiv2.css,css/jquery-ui.css,css/jquery.ui.datepicker.css,validate/engine.css?version=2013123103" rel="stylesheet" media="screen"></head>
+<body>
+<!--顶部入口条 开始-->
+<!--IE6 tips 开始-->
+<!--[if IE 6]>
+<div id="kie-bar" class="kie-bar">
+  您使用的浏览器版本过低，为了您的资金安全和更好地用户体验，建议立即升级
+  <a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" seed="kie-setup-IE8" target="_blank" >
+  <i class="kie-bar-icon-ie"></i>Internet Explorer</a>
+  或
+  <a href="https://www.google.com/intl/zh-CN/chrome/" seed="kie-setup-IE8" target="_blank" >
+  <i class="kie-bar-icon-chrome"></i>Google Chrome</a>
+</div>
+<style>
+  .kie-bar {
+    height: 24px;
+    line-height: 1.8;
+    font-weight:normal;
+    text-align: center;
+    border-bottom:1px solid #fce4b5;
+    background-color:#FFFF9B;
+    color:#e27839;
+    position: relative;
+    font-size: 14px;
+    text-shadow: 0px 0px 1px #efefef;
+    padding: 5px 0;
+  }
+  .kie-bar a {
+    color:#08c;
+    text-decoration: none;
+  }
+  ul.inline li{
+    display:inline-block;
+    *display:inline;
+    *zoom:1;
+  }
+  #flash_huobi{
+    background-color:#fff;
+  }
+</style>
+<![endif]--><!--IE6 tips  结束-->
+<div class="entrance-bar">
+  <div class="container-b clearfix">
+    <div class="pull-left">
+      <a href="https://www.huobi.com" class="current">现货交易</a>|
+      <a href="http://s.huobi.com" target="_blank">模拟交易</a>
+      <!--<a href="https://www.huobi.com/dazong/index.php" target="_blank">大宗交易</a>-->
+    </div>
+    <div class="pull-right">
+              <a href="https://www.huobi.com/account/account.php">john.doe@gmail.com</a>
+        &nbsp;&nbsp;
+        <span style="color: #B5B5B5;">UID:<span style="color:red;">1</span></span>
+        &nbsp;&nbsp;
+        <a href="https://www.huobi.com/trade/index.php">交易中心</a>|
+        <a class="quit_login" href="https://www.huobi.com/account/logout.php">退出</a>|
+            <a href="javascript:void(0);" onclick="huobi.setHome(this,window.location)">设为首页</a>|
+      <a href="javascript:void(0);" onclick="huobi.addFavorite(window.location,document.title)">收藏本站</a>
+    </div>
+  </div>
+</div><!--顶部入口条  结束-->
+<!--logo行  开始-->
+<div class="logo-row">
+  <div class="container-b clearfix">
+    <a href="https://www.huobi.com">
+    <img class="logo pull-left" src="https://huobistatic.com/img/logo-xianhuo.png" alt="火币网"/>
+    </a>
+    <!--a style="
+    float: right;
+    width: 78px;
+    height:90px;
+    margin-left: 20px;
+    margin-top: -1px;
+    background:url('https://huobistatic.com/img/logo-row-qq.png') no-repeat;
+    text-decoration:none;
+" href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&amp;key=XzkzODAyNzA3Ml83MDU4N180MDA4NTU4NTExXzJf" target="_blank"></a-->
+
+    <span class="phone pull-right"></span>
+
+  </div>
+</div><!--logo行  结束-->
+<!--top nav 开始-->
+<div class="nav-bar ">
+  <div class="container-b clearfix">
+    <div class="nav-bar-links pull-left">
+      <a href="https://www.huobi.com" class="nav-bar-index">首&nbsp;&nbsp;页<b></b></a>/
+      <a href="https://www.huobi.com/trade/index.php" >交易中心<b></b></a>/
+            <a href="https://www.huobi.com/finance/index.php" >财务中心<b></b></a>/
+      <a href="https://www.huobi.com/loan/index.php?a=loan" >借贷中心<b></b></a>/
+            <a href="https://www.huobi.com/account/account.php?a=security_center">安全中心<b></b></a>/
+      <a href="https://www.huobi.com/account/account.php">用户中心<b></b></a>/
+      <a href="https://www.huobi.com/help/index.php">帮助中心<b></b></a>
+      <!--<a href="http://www.btc800.com" target="_blank">行情资讯<b></b></a>-->
+    </div>
+
+        <div class="user-info-wrapper pull-right">
+      <div class="user-info-outter clearfix">
+        <span class="title pull-left">总资产折合：</span>
+        <span class="des pull-left">¥<span class="user_total">4768.52</span></span>
+        <span class="pull-right arrow arrow-down"></span>
+      </div>
+      <div class="user-info-inner">
+        <div class="user-info-account clearfix">
+          <span class="user-info-avtar pull-left"></span>
+        <span class="user-info-email pull-left">
+          john.doe@gmail.com        </span>
+          <br/>
+        <span class="user-info-level pull-left">
+          VIP0        </span>
+        </div>
+        <ul class="user-info-funds unstyled">
+          <li><i class="i-uid"></i><span class="des">UID:</span><span><b>1</b></span></li>
+          <li><i class="i-zzczh"></i><span class="des">总资产折合：</span><span><span class="user_total">4768.52</span>元</span></li>
+          <li><i class="i-jzczh"></i><span class="des">净资产折合：</span><span><span class="user_net_asset">4768.52</span>元</span></li>
+          <li><i class="i-kyrmb"></i><span class="des">可用人民币：</span><span><span class="user_available_cny">0.00</span>元</span></li>
+          <li><i class="i-kybtc"></i><span class="des">可用比特币：</span><span>฿&nbsp;<span class="user_available_btc">0.9996</span></span></li>
+          <li><i class="i-djrmb"></i><span class="des">冻结人民币：</span><span><span class="user_frozen_cny">0.00</span>元</span></li>
+          <li><i class="i-djbtc"></i><span class="des">冻结比特币：</span><span>฿&nbsp;<span class="user_frozen_btc">0.0003</span></span></li>
+          <li><i class="i-jke"></i><span class="des">借款额：</span><span><span class="user_loan_cny">0.00</span>元</span></li>
+          <li><i class="i-jbe"></i><span class="des">借币额：</span><span>฿&nbsp;<span class="user_loan_btc">0.0000</span></span></li>
+        </ul>
+      </div>
+    </div>
+      </div>
+</div>
+<div class="top-news-bar">
+    <div class="main"> <img src="https://huobistatic.com/img/icon_bulb.png?"> <a href="http://news.huobi.com/index.php?a=show_notice&id=27" target="_blank">来自火币网客户服务部的最新消息！关于充值、提现、比特币审核等......</a> </div>
+</div>
+<!--top nav 结束-->
+
+<!--二级页面 page-b  开始-->
+<div class="page-b">
+  <div class="container-b clearfix">
+    <!--左侧导航栏  开始-->
+    <div class="left-nav-bar pull-left">
+  <ul class="level-one">
+    <li>
+      <div class="level-one-title nav-trade-center">
+        <b></b>交易中心</div>
+      <ul class="level-two">
+        <li><a href="/trade/index.php"><b></b>买入/卖出</a><s></s></li>
+        <li><a href="/trade/index.php?a=delegation"><b></b>委托管理</a><s></s></li>
+        <li><a href="/trade/index.php?a=query"><b></b>交易查询</a><s></s></li>
+        <li><a href="/trade/index.php?a=history"><b></b>全站交易历史</a><s></s></li>
+        <li><a   href="/trade/index.php?a=depth"><b></b>市场深度</a><s></s></li>
+      </ul>
+    </li>
+        <li>
+      <div class="level-one-title nav-finance-center">
+        <b></b>财务中心</div>
+      <ul class="level-two">
+        <li><a href="/finance/index.php"><b></b>财务记录</a><s></s></li>
+        <li><a href="/deposit/index.php?a=cny_deposit"><b></b>人民币充值</a><s></s></li>
+        <li><a href="/withdraw/index.php?a=cny_withdraw"><b></b>人民币提现</a><s></s></li>
+        <li><a href="/deposit/index.php?a=btc_deposit"><b></b>比特币充值</a><s></s></li>
+        <li><a href="/withdraw/index.php?a=btc_withdraw"><b></b>比特币提现</a><s></s></li>
+        <li class="last-item"><a href="/finance/index.php?a=channels"><b></b>提现账户设置</a><s></s></li>
+      </ul>
+    </li>
+    <li>
+      <div class="level-one-title nav-loan-center">
+        <b></b>借贷中心</div>
+      <ul class="level-two">
+        <li><a href="/loan/index.php?a=loan"><b></b>借款/借币</a><s></s></li>
+        <li id="hbreserve"><a href="/loan/index.php?a=reserve"><b></b>预约借贷</a><s></s></li>
+      </ul>
+    </li>
+        <li>
+      <div class="level-one-title nav-safe-center"><b></b>安全中心</div>
+      <ul class="level-two">
+        <li><a href="/account/account.php?a=security_center"><b></b>账号安全</a><s></s></li>
+                <li><a href="/account/account.php?a=twofactor"><b></b>双重认证</a><s></s></li>
+        <li><a href="/account/account.php?a=fund_security"><b></b>资产安全</a><s></s></li>
+              </ul>
+    </li>
+    <li>
+      <div class="level-one-title nav-user-center"><b></b>用户中心</div>
+      <ul class="level-two">
+        <li><a href="/account/account.php"><b></b>用户信息</a><s></s></li>
+        <li><a href="/account/account.php?a=score"><b></b>我的积分</a><s></s></li>
+                <li><a href="/account/account.php?a=invitation"><b></b>我的邀请</a><s></s></li>
+                <li class="last-item"><a href="/account/account.php?a=change_passwd"><b></b>修改登录密码</a><s></s></li>
+        <!--<li><a href="/account/account.php?a=apikeys"><b></b>API访问</a><s class="last-s"></s></li>-->
+      </ul>
+    </li>
+  </ul>
+</div>
+    <!--左侧导航栏  结束-->
+    <!--主体内容  开始-->
+    <div class="main-content pull-right">
+      <!--面包屑  开始-->
+      <div class="breadcrumb-wrapper">
+        <ul class="breadcrumb">
+          <li>
+            <a class="breadcrumb-index" href="/index.php">首页</a>
+            <span class="divider">&gt; </span></li>
+          <li>
+            <a href="/trade/index.php">交易中心</a>
+            <span class="divider">&gt; </span></li>
+          <li class="active">我的委托</li>
+        </ul>
+      </div>
+      <!--面包屑  结束-->
+
+      <div class="legend">我的委托</div>
+
+      <div class="row_2">
+        <div class="unit_head">
+          我的委托
+        </div>
+        <div class="row_2_content">
+                    <table class="table table-hover ">
+            <thead>
+            <tr>
+              <th>委托时间</th>
+              <th>类别</th>
+              <th>价格</th>
+              <th>数量</th>
+              <th>交易额</th>
+              <th>手续费</th>
+              <th>总金额</th>
+              <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                        <tr>
+              <td>2014.01.04 19:16</td>
+              <td>卖出</td>
+              <td>99999.000</td>
+              <td>0.0001</td>
+              <td>9.999</td>
+              <td>0.000</td>
+              <td>9.999</td>
+              <td>
+                                <a href="#myModalSell" onClick="sell_btc_edit(3536208)"  data-toggle="modal" >修改</a>
+                                &nbsp;|&nbsp; <a href="/trade/?a=cancel&id=3536208">撤单</a>
+              </td>
+            </tr>
+                        <tr>
+              <td>2014.01.04 19:07</td>
+              <td>卖出</td>
+              <td>99999.000</td>
+              <td>0.0001</td>
+              <td>9.999</td>
+              <td>0.000</td>
+              <td>9.999</td>
+              <td>
+                                <a href="#myModalSell" onClick="sell_btc_edit(3535854)"  data-toggle="modal" >修改</a>
+                                &nbsp;|&nbsp; <a href="/trade/?a=cancel&id=3535854">撤单</a>
+              </td>
+            </tr>
+                        <tr>
+              <td>2014.01.04 18:54</td>
+              <td>卖出</td>
+              <td>99999.000</td>
+              <td>0.0001</td>
+              <td>9.999</td>
+              <td>0.000</td>
+              <td>9.999</td>
+              <td>
+                                <a href="#myModalSell" onClick="sell_btc_edit(3535273)"  data-toggle="modal" >修改</a>
+                                &nbsp;|&nbsp; <a href="/trade/?a=cancel&id=3535273">撤单</a>
+              </td>
+            </tr>
+                        </tbody>
+          </table>
+                  </div>
+      </div>
+
+
+      <div class="row_2">
+        <div class="unit_head">历史委托</div>
+        <div class="row_2_content">
+                    <div class="no_record">无委托记录</div>
+                  </div>
+        <div class="pagination pagination-centered pagination-small">
+          <ul>
+            <li class="disabled"><span>共0条记录</span></li>
+                        <li class="disabled"><span>共0页</span></li>
+          </ul>
+        </div>
+      </div>
+
+
+      <!-- Modal -->
+      <div id="myModalBuy" class="modal hide fade index-trade-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="myModalLabel">委托单修改</h3>
+        </div>
+        <div class="modal-body">
+          <div class="trade-center-form">
+            <form id="form_buy_btc" class="form-horizontal" method="post" action="/trade/?a=update">
+  <input id="buy_btc_id" type="hidden" name="id" value="" />
+  <div class="control-group">
+    <label class="control-label tx-red" for="zuijiamaijia_o">最佳买价：</label>
+    <div class="controls">
+      <label id="zuijiamaijia_o" class="tx-red">0</label><span class="help-inline">CNY/BTC</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label tx-red" for="dangqianyue_o">当前余额：</label>
+    <div class="controls">
+      <label id="dangqianyue_o" class="tx-red">0</label><span class="help-inline">CNY</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label tx-red" for="kemairuliang_o">可买入量：</label>
+    <div class="controls">
+      <label id="kemairuliang_o" class="tx-red">0</label><span class="help-inline">BTC</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="mairujia_m">买入价：</label>
+    <div class="controls">
+      <input class="validate[required,ajax[ajax_check_buy_price]] text-input " name="price" type="text" id="mairujia_m" placeholder=""/><span class="help-inline">CNY/BTC</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="mairuliang_m">买入量：</label>
+    <div class="controls">
+      <input  class="validate[required,min[0.0001]] text-input " name="amount" type="text" id="mairuliang_m" placeholder=""/><span class="help-inline">BTC</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="duihuane_m">交易额：</label>
+    <div class="controls">
+      <input  class="validate[required] text-input " readonly="readonly" type="text" id="duihuane_m" placeholder=""/><span class="help-inline">CNY</span>
+    </div>
+  </div>
+  <div class="control-group hidden">
+    <label class="control-label" for="shouxufei_m">手续费：</label>
+    <div class="controls">
+      <input   class="validate[required] text-input "readonly="readonly" type="text" id="shouxufei_m" placeholder=""/>
+      <span class="help-inline">CNY&nbsp;&nbsp;<span class="text-success">(<span class="user_fee_rate">0</span>%)</span></span>
+    </div>
+  </div>
+  <!--<div class="control-group">-->
+    <!--<label class="control-label" for="zhifumima">资金密码：</label>-->
+    <!--<div class="controls">-->
+      <!--<input  class="validate[required] text-input " type="password" name="password" id="zhifumima" placeholder=""/>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <div class="control-group">
+    <button type="submit" class=" buy_btn">买入 （BTC-CNY）</button>
+  </div>
+</form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+        </div>
+      </div>
+      <div id="myModalSell" class="modal hide fade index-trade-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="myModalLabel">委托单修改</h3>
+        </div>
+        <div class="modal-body">
+          <div class="trade-center-form">
+            <form id="form_sell_btc" class="form-horizontal" method="post" action="/trade/?a=update">
+  <input id="sell_btc_id" type="hidden" name="id" value="" />
+  <div class="control-group">
+    <label class="control-label tx-green" for="zuijiamaijia_o">最佳卖价：</label>
+    <div class="controls">
+      <label id="zuijiamaijia_o" class="tx-green">0</label><span class="help-inline">CNY/BTC</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label tx-green" for="dangqianyue_o">当前余额：</label>
+    <div class="controls">
+      <label id="dangqianyue_o" class="tx-green">0.9996</label><span class="help-inline">BTC</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label tx-green" for="kemaichuliang_o">可卖出量：</label>
+    <div class="controls">
+      <label id="kemaichuliang_o" class="tx-green">0</label><span class="help-inline">BTC</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="price_m">卖出价：</label>
+    <div class="controls">
+      <input class="validate[required,ajax[ajax_check_sell_price]] text-input " type="text" name="price" id="price_m" placeholder=""/><span class="help-inline">CNY/BTC</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="volume_m">卖出量：</label>
+    <div class="controls">
+      <input class="validate[required,min[0.0001]] text-input " type="text" name="amount" id="volume_m" placeholder=""/><span class="help-inline">BTC</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="duihuane_o_m">交易额：</label>
+    <div class="controls">
+      <input readonly="readonly" class="validate[required] text-input " type="text" id="duihuane_o_m" placeholder=""/><span class="help-inline">CNY</span>
+    </div>
+  </div>
+  <div class="control-group hidden">
+    <label class="control-label" for="shouxufei_o_m">手续费：</label>
+    <div class="controls">
+      <input readonly="readonly" class="validate[required] text-input " type="text" id="shouxufei_o_m" placeholder=""/>
+      <span class="help-inline">BTC&nbsp;&nbsp;<span class="text-success">(<span class="user_fee_rate">0</span>%)</span></span>
+    </div>
+  </div>
+  <!--<div class="control-group">-->
+    <!--<label class="control-label" for="zhifumima_o">资金密码：</label>-->
+    <!--<div class="controls">-->
+      <!--<input type="password" name="password" class="validate[required] text-input " id="zhifumima_o" placeholder=""/>-->
+    <!--</div>-->
+  <!--</div>-->
+  <div class="control-group">
+    <button type="submit" class=" sell-btn">卖出 （BTC-CNY）</button>
+  </div>
+</form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+        </div>
+      </div>
+
+    </div>
+    <!--主体内容  结束-->
+  </div>
+</div>
+<!--二级页面 page-b  结束-->
+
+<!--底部fixed 行情 开始-->
+
+<div class="hangqing-fixed">
+    <div style="position: relative;width: 100%;height: 100%;">
+        <div class="hangqing-inner">
+            <div class="hangqing-wrapper clearfix">
+                <div class="container-b clearfix">
+                    <div class="k-line pull-left market_flash">
+
+                    </div>
+                    <div class="buy-sell-info pull-right">
+                        <div class="buy-sell-info-hd clearfix">
+                            <span class="pull-left">买卖盘</span><a   href="/trade/index.php?a=depth" class="more pull-right">更多>></a>
+                        </div>
+                        <div class="buy-sell-info-co">
+                            <table class="table table-striped">
+                                <thead>
+                                <th>类型</th>
+                                <th>价格</th>
+                                <th>比特币数量</th>
+                                <th>累积</th>
+                                </thead>
+                                <tbody class="trade_market_depth">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trade-form">
+                <div class="container-b clearfix">
+                    <form id="form_add_buy_btc2" class="trade-buy-form pull-left" method="post" action="/trade/?a=do_buy" autocomplete="off">
+                        <dl>
+                            <dt><span class="help-inline">(CNY/BTC)</span>买入价：</dt>
+                            <dd>
+                                <input class="validate[required,min[0.01],ajax[ajax_check_buy_price]] text-input " name="price" type="text" id="mairujia2" value="" autocomplete="off" placeholder="买入价"/>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span class="help-inline">(BTC)</span>买入量：</dt>
+                            <dd>
+                                <input class="validate[required,min[0.0001],ajax[ajax_check_buy_volume]] text-input " name="amount" type="text" id="mairuliang2" autocomplete="off" placeholder="买入量"/>
+                            </dd>
+                        </dl>
+                                                <dl>
+                            <dt><span class="help-inline">(CNY)</span>交易额：</dt>
+                            <dd><input class="validate[required] text-input " readonly="readonly" type="text" id="duihuane2" placeholder="交易额"/></dd>
+                        </dl>
+                                                <button type="submit" class="buy">买入</button>
+                    </form>
+                    <form class="trade-sell-form pull-right" id="form_add_sell_btc2" method="post" action="/trade/?a=do_sell">
+                        <dl>
+                            <dt><span class="help-inline">(CNY/BTC)</span>卖出价：</dt>
+                            <dd>
+                                <input class="validate[required,min[0.01],ajax[ajax_check_sell_price]] text-input " type="text" name="price" id="price2" value="" autocomplete="off" placeholder="卖出价"/>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span class="help-inline">(BTC)</span>卖出量：</dt>
+                            <dd>
+                                <input class="validate[required,min[0.0001],ajax[ajax_check_sell_volume]] text-input " type="text" name="amount" id="volume2" autocomplete="off" placeholder="卖出量" />
+                            </dd>
+                        </dl>
+                                                <dl>
+                            <dt><span class="help-inline">(CNY)</span>交易额：</dt>
+                            <dd><input class="validate[required] text-input " readonly="readonly" type="text" id="duihuane_o2" placeholder="交易额"/></dd>
+                        </dl>
+                                                <button type="submit" class="sell">卖出</button>
+                    </form>
+                </div>
+            </div>
+            <div class="close-inner">X 关闭</div>
+        </div>
+        <div class="hangqing-outter">
+            <div class="container-b clearfix">
+                                <div class="hangqing-info-login pull-left">
+                    火币网最新价格：<span class="hq_t_p_new">&nbsp;&nbsp;</span>&nbsp;&nbsp;|
+                    买一:<span class="hq_buy_1 tx-red">&nbsp;&nbsp;</span>&nbsp;&nbsp;|
+                    卖一:<span class="hq_sell_1 tx-green">&nbsp;&nbsp;</span>&nbsp;&nbsp;|
+                    最高:<span class="hq_t_p_high">&nbsp;&nbsp;</span>&nbsp;&nbsp;|
+                    最低:<span class="hq_t_p_low">&nbsp;&nbsp;</span>&nbsp;&nbsp;|
+                    成交量：<span class="hq_t_amount">&nbsp;&nbsp;</span>
+                    <div class="user-info-login">
+                        可用:¥ <span class="user_available_cny">0.00</span> 元&nbsp;&nbsp;฿ <span class="user_available_btc">0.00</span> BTC&nbsp;&nbsp;|
+                        冻结:¥ <span class="user_frozen_cny">0.00</span> 元&nbsp;&nbsp;฿ <span class="user_frozen_btc">0.00</span> BTC&nbsp;&nbsp;|
+                        已借:¥ <span class="user_loan_cny">0.00</span> 元&nbsp;&nbsp;฿ <span class="user_loan_btc">0.00</span> BTC
+
+                    </div>
+                </div>
+
+                                <div class="online-service pull-right">
+                    周一至周五9:00--18:00
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="hangqing-fixed-mask"></div><!--底部fixed 行情 结束-->
+
+<!--footer  开始-->
+<div style="position: relative;" class="footer-v2">
+  <div class="container-b">
+    <div class="clearfix">
+      <div class="weixin pull-left">
+        <img src="https://huobistatic.com/img/footer_weixin.png" alt="比特币中国交易平台">
+      </div>
+      <div class="link-group pull-right">
+        <dl style="width: 250px;">
+          <dt>联系我们</dt>
+          <dd>企业QQ：<img  style="CURSOR: pointer" onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=4008558511&eid=218808P8z8p8K8y8p8y8K&o=www.huobi.com&q=7&ref='+document.location, '_blank', 'height=544, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');"  border="0" SRC="https://huobistatic.com/img/zx_qq.png"></dd>
+          <dd>服务热线：4008-558-511</dd>
+          <dd>比特币模拟交易QQ群：321219137</dd>          
+          <dd>比特币交易QQ群1：240024392(已满)</dd>
+          <dd>比特币交易QQ群2：138753299(已满)</dd>
+          <dd>比特币交易QQ群3：185694767(已满)</dd>
+          <dd>比特币交易QQ群4：317490782(已满)</dd>
+          <dd>比特币交易QQ群5：308489746(已满)</dd>
+          <dd>比特币交易QQ群6：248799682(已满)</dd>
+          <dd>比特币交易QQ超级群：12559422(已满)</dd>
+          <dd>比特币交易QQ群7：207484259(已满)</dd>
+          <dd>比特币交易QQ群8：61300494(已满)</dd>
+          <dd>比特币交易QQ群9：306387586(已满)</dd>
+          <dd>比特币交易QQ群11：119635127</dd>
+          <dd>比特币交易QQ群12：162384326</dd>
+          
+          
+        </dl>
+        <dl>
+          <dt>关于我们</dt>
+          <dd>
+            <a href="https://www.huobi.com/about.php" target="_blank">火币网</a></dd>
+          <dd>
+            <a href="https://www.huobi.com/team_des.php" target="_blank">火币网团队</a></dd>
+          <dd>
+            <a href="https://www.huobi.com/join_us.php" target="_blank">加入火币网</a></dd>
+        </dl>
+        <dl>
+          <dt>服务协议与声明</dt>
+          <dd>
+            <a href="https://www.huobi.com/user_protocol.php" target="_blank">用户协议</a></dd>
+          <dd>
+            <a href="https://www.huobi.com/law.php" target="_blank">法律声明</a></dd>
+          <dd>
+            <a href="https://www.huobi.com/help/?a=detail&amp;id=vipdes" target="_blank">费率标准</a></dd>
+        </dl>
+        <dl>
+          <dt>合作伙伴</dt>
+          <dd>
+            <a href="http://www.btc800.com/" target="_blank">BTC800（官方合作媒体）</a></dd>
+          <dd>
+            <a href="https://www.huobi.com/friend_link.php" target="_blank">友情链接</a></dd>
+          <dd>
+            <a href="http://soft.hao123.com/soft/appid/881.html">谷歌浏览器下载</a>
+          </dd>
+          <dd style="height:34px;margin-top: 10px;">
+            <a href="http://weibo.com/huobicom" target="_blank" style="display:inline-block;width: 122px;height: 34px; background:url('https://huobistatic.com/img/footer-weibo.png')"></a>
+          </dd>
+          
+        </dl>
+      </div>
+    </div>
+    <div>
+    	<h5 style="color:#F00; font-size:16px"><img src="https://huobistatic.com/img/icon_info.png"> 风险警告：</h5>
+        <p style="color:#FFF">比特币交易有风险，比特币是一种全球的虚拟数字货币，它是全天24小时交易，也没有涨跌限制。价格容易受到庄家、全球政策等影响下大幅波动。
+          我们强烈建议您在自身承受的风险范围内，参与比特币交易。</p>
+    </div>
+    <div class="text-center" style="margin-top: 40px;margin-bottom: 10px;"> 客服邮箱(处理账号、充值、提现、投诉等问题)：123@huobi.com  &nbsp;&nbsp;&nbsp;&nbsp;   媒体合作电话：13911777365   </div>
+    <div class="copyright text-center" style="margin-top: 0;">&nbsp;
+      Copyright@&nbsp;&nbsp;2013-2014&nbsp;&nbsp;huobi.com&nbsp;&nbsp;|&nbsp;&nbsp;京ICP备13025163号-1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;版权所有 北京中科汇商电子商务有限公司&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.huobi.com/">火币网</a> <a href="http://www.huobi.com/">比特币中国交易平台</a>
+    </div>
+  </div>
+</div>
+<div style="display:none">
+  <script src="https://s14.cnzz.com/stat.php?id=5565080&web_id=5565080" language="JavaScript"></script>
+</div>
+<!-- Button to trigger modal -->
+<a href="#show_alert_div" id="show_alert_dialog" role="button" class="btn hide" data-toggle="modal">Show alert dialog</a>
+
+<!-- Modal -->
+<div id="show_alert_div" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">提示</h3>
+  </div>
+  <div class="modal-body">
+    <p id="show_alert_msg"></p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">关闭</button>
+  </div>
+</div>
+
+<!--
+--><!--footer  结束-->
+
+<!--客服QQ  开始-->
+<div class="online-service-inner hidden">
+  <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAyNzA3Ml83MDU4N180MDA4NTU4NTExXzJf" target="_blank"></a>
+<script src="https://huobistatic.com/merged/validate/1.7.1.min.js,js/bootstrap.min.js,js/jquery-ui.js,js/jquery-ui-slide.min.js,js/jquery-ui-timepicker-addon.js,validate/engine.js,validate/zh_cn.js,js/jquery.enplaceholder.js,js/huobiv2.js,js/custom/user_account_interval.js?version=2013123103"></script></div>
+<!--客服QQ  结束-->
+</body>
+</html>

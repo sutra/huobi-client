@@ -17,11 +17,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.redv.huobi.domain.Delegation;
 import com.redv.huobi.domain.Depth;
 import com.redv.huobi.domain.Funds;
 import com.redv.huobi.domain.LoginResult;
 import com.redv.huobi.domain.TradeResult;
 import com.redv.huobi.domain.Type;
+import com.redv.huobi.valuereader.DelegationReader;
 import com.redv.huobi.valuereader.JsonValueReader;
 import com.redv.huobi.valuereader.LoginResultReader;
 import com.redv.huobi.valuereader.VoidValueReader;
@@ -97,6 +99,39 @@ public class HUOBIClient {
 
 	public void sell(BigDecimal price, BigDecimal amount) throws IOException {
 		trade(Type.SELL, price, amount);
+	}
+
+	/**
+	 * Cancels the delegation with the given ID and returns the left delegations.
+	 *
+	 * @param id the ID of the delegation to cancel.
+	 * @return the left delegations.
+	 * @throws IOException indicates I/O exception.
+	 */
+	public List<Delegation> cancel(long id) throws IOException {
+		URI uri;
+		try {
+			uri = new URIBuilder(TRADE_URI)
+				.setParameter("a", "cancel")
+				.setParameter("id", String.valueOf(id))
+				.build();
+		} catch (URISyntaxException e) {
+			throw new IllegalArgumentException(e);
+		}
+
+		return httpClient.get(uri, new DelegationReader());
+	}
+
+	public List<Delegation> getDelegations() throws IOException {
+		URI uri;
+		try {
+			uri = new URIBuilder(TRADE_URI)
+				.setParameter("a", "delegation")
+				.build();
+		} catch (URISyntaxException e) {
+			throw new IllegalArgumentException(e);
+		}
+		return httpClient.get(uri, new DelegationReader());
 	}
 
 	private void trade(Type type, BigDecimal price, BigDecimal amount)

@@ -17,4 +17,8 @@ public class HUOBIClientException extends IOException {
 		super(message, cause);
 	}
 
+	public HUOBIClientException(Throwable cause) {
+		super(cause);
+	}
+
 }
