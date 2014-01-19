@@ -20,7 +20,7 @@ public class Main {
 		final String email = args[0];
 		final String password = args[1];
 
-		HUOBIClient client = new HUOBIClient(email, password);
+		HUOBIClient client = new HUOBIClient(email, password, 5000, 5000, 5000);
 
 		// Get funds before login
 		try {
@@ -65,6 +65,8 @@ public class Main {
 
 		// Cancel
 		// client.cancel(1);
+
+		client.close();
 	}
 
 }

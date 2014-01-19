@@ -29,7 +29,7 @@ import com.redv.huobi.valuereader.JsonValueReader;
 import com.redv.huobi.valuereader.LoginResultReader;
 import com.redv.huobi.valuereader.VoidValueReader;
 
-public class HUOBIClient {
+public class HUOBIClient implements AutoCloseable {
 
 	public static final String ENCODING = "UTF-8";
 
@@ -51,12 +51,20 @@ public class HUOBIClient {
 
 	private final String password;
 
-	public HUOBIClient() {
-		this(null, null);
+	public HUOBIClient(
+			int socketTimeout,
+			int connectTimeout,
+			int connectionRequestTimeout) {
+		this(null, null, socketTimeout, connectTimeout, connectionRequestTimeout);
 	}
 
-	public HUOBIClient(String email, String password) {
-		httpClient = new HttpClient();
+	public HUOBIClient(
+			String email,
+			String password,
+			int socketTimeout,
+			int connectTimeout,
+			int connectionRequestTimeout) {
+		httpClient = new HttpClient(socketTimeout, connectTimeout, connectionRequestTimeout);
 		this.email = email;
 		this.password = password;
 	}
@@ -148,6 +156,14 @@ public class HUOBIClient {
 			throw new IllegalArgumentException(e);
 		}
 		return httpClient.get(uri, new DelegationReader());
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void close() throws IOException {
+		httpClient.close();
 	}
 
 	private void trade(Type type, BigDecimal price, BigDecimal amount)
