@@ -30,7 +30,7 @@ public class MyTradeInfo extends AbstractObject {
 		return extra;
 	}
 
-	public class Extra extends AbstractObject {
+	public static class Extra extends AbstractObject {
 
 		private static final long serialVersionUID = 2014010501L;
 
@@ -54,7 +54,7 @@ public class MyTradeInfo extends AbstractObject {
 		public Balance getBalance() {
 			return balance;
 		}
-		public class Sell extends AbstractObject {
+		public static class Sell extends AbstractObject {
 
 			private static final long serialVersionUID = 2014010501L;
 
@@ -81,7 +81,7 @@ public class MyTradeInfo extends AbstractObject {
 
 		}
 
-		public class Buy extends AbstractObject {
+		public static class Buy extends AbstractObject {
 
 			private static final long serialVersionUID = 2014010501L;
 
@@ -108,7 +108,7 @@ public class MyTradeInfo extends AbstractObject {
 
 		}
 
-		public class Balance extends AbstractObject {
+		public static class Balance extends AbstractObject {
 
 			private static final long serialVersionUID = 2014010501L;
 
