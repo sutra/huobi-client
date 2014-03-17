@@ -22,14 +22,14 @@ public class Funds extends AbstractObject {
 	private BigDecimal availableCny;
 
 	/**
-	 * 可用比特币：
-	 */
-	private BigDecimal availableBtc;
-
-	/**
 	 * 冻结人民币：元
 	 */
 	private BigDecimal frozenCny;
+
+	/**
+	 * 可用比特币
+	 */
+	private BigDecimal availableBtc;
 
 	/**
 	 * 冻结比特币
@@ -37,14 +37,30 @@ public class Funds extends AbstractObject {
 	private BigDecimal frozenBtc;
 
 	/**
-	 * 借款额：元
+	 * 可用莱特币
+	 */
+	private BigDecimal availableLtc;
+
+	/**
+	 * 冻结莱特币
+	 */
+	private BigDecimal frozenLtc;
+
+
+	/**
+	 * 已借人民币
 	 */
 	private BigDecimal loanCny;
 
 	/**
-	 * 借币额
+	 * 已借比特币
 	 */
 	private BigDecimal loanBtc;
+
+	/**
+	 * 已借莱特币
+	 */
+	private BigDecimal loanLtc;
 
 	public BigDecimal getTotal() {
 		return total;
@@ -70,14 +86,6 @@ public class Funds extends AbstractObject {
 		this.availableCny = availableCny;
 	}
 
-	public BigDecimal getAvailableBtc() {
-		return availableBtc;
-	}
-
-	public void setAvailableBtc(BigDecimal availableBtc) {
-		this.availableBtc = availableBtc;
-	}
-
 	public BigDecimal getFrozenCny() {
 		return frozenCny;
 	}
@@ -86,12 +94,36 @@ public class Funds extends AbstractObject {
 		this.frozenCny = frozenCny;
 	}
 
+	public BigDecimal getAvailableBtc() {
+		return availableBtc;
+	}
+
+	public void setAvailableBtc(BigDecimal availableBtc) {
+		this.availableBtc = availableBtc;
+	}
+
 	public BigDecimal getFrozenBtc() {
 		return frozenBtc;
 	}
 
 	public void setFrozenBtc(BigDecimal frozenBtc) {
 		this.frozenBtc = frozenBtc;
+	}
+
+	public BigDecimal getAvailableLtc() {
+		return availableLtc;
+	}
+
+	public void setAvailableLtc(BigDecimal availableLtc) {
+		this.availableLtc = availableLtc;
+	}
+
+	public BigDecimal getFrozenLtc() {
+		return frozenLtc;
+	}
+
+	public void setFrozenLtc(BigDecimal frozenLtc) {
+		this.frozenLtc = frozenLtc;
 	}
 
 	public BigDecimal getLoanCny() {
@@ -108,6 +140,14 @@ public class Funds extends AbstractObject {
 
 	public void setLoanBtc(BigDecimal loanBtc) {
 		this.loanBtc = loanBtc;
+	}
+
+	public BigDecimal getLoanLtc() {
+		return loanLtc;
+	}
+
+	public void setLoanLtc(BigDecimal loanLtc) {
+		this.loanLtc = loanLtc;
 	}
 
 }
