@@ -30,7 +30,7 @@ public class MyTradeInfo extends AbstractObject {
 		return extra;
 	}
 
-	public class Extra extends AbstractObject {
+	public static class Extra extends AbstractObject {
 
 		private static final long serialVersionUID = 2014010501L;
 
@@ -54,7 +54,7 @@ public class MyTradeInfo extends AbstractObject {
 		public Balance getBalance() {
 			return balance;
 		}
-		public class Sell extends AbstractObject {
+		public static class Sell extends AbstractObject {
 
 			private static final long serialVersionUID = 2014010501L;
 
@@ -66,6 +66,15 @@ public class MyTradeInfo extends AbstractObject {
 
 			@JsonProperty("available_btc")
 			private BigDecimal availableBtc;
+
+			@JsonProperty("price_ltc")
+			private BigDecimal priceLtc;
+
+			@JsonProperty("amount_ltc")
+			private BigDecimal amountLtc;
+
+			@JsonProperty("available_ltc")
+			private BigDecimal availableLtc;
 
 			public BigDecimal getPrice() {
 				return price;
@@ -81,7 +90,7 @@ public class MyTradeInfo extends AbstractObject {
 
 		}
 
-		public class Buy extends AbstractObject {
+		public static class Buy extends AbstractObject {
 
 			private static final long serialVersionUID = 2014010501L;
 
@@ -93,6 +102,12 @@ public class MyTradeInfo extends AbstractObject {
 
 			@JsonProperty("available_cny")
 			private BigDecimal availableCny;
+
+			@JsonProperty("price_ltc")
+			private BigDecimal priceLtc;
+
+			@JsonProperty("amount_ltc")
+			private BigDecimal amountLtc;
 
 			public BigDecimal getPrice() {
 				return price;
@@ -108,7 +123,7 @@ public class MyTradeInfo extends AbstractObject {
 
 		}
 
-		public class Balance extends AbstractObject {
+		public static class Balance extends AbstractObject {
 
 			private static final long serialVersionUID = 2014010501L;
 
@@ -148,8 +163,32 @@ public class MyTradeInfo extends AbstractObject {
 			@JsonProperty("debt_rmb")
 			private BigDecimal debtRmb;
 
+			@JsonProperty("initialized_ltc")
+			private BigDecimal initializedLtc;
+
+			@JsonProperty("available_cny_ltc")
+			private BigDecimal availableCnyLtc;
+
+			@JsonProperty("available_ltc")
+			private BigDecimal availableLtc;
+
+			@JsonProperty("frozen_cny_ltc")
+			private BigDecimal frozenCnyLtc;
+
+			@JsonProperty("frozen_ltc")
+			private BigDecimal frozenLtc;
+
+			@JsonProperty("debt_ltc")
+			private BigDecimal debtLtc;
+
 			@JsonProperty("total")
 			private BigDecimal total;
+
+			@JsonProperty("btc_total")
+			private BigDecimal btcTotal;
+
+			@JsonProperty("ltc_total")
+			private BigDecimal ltcTotal;
 
 			@JsonProperty("loan_total")
 			private BigDecimal loanTotal;
@@ -157,20 +196,32 @@ public class MyTradeInfo extends AbstractObject {
 			@JsonProperty("net_asset")
 			private BigDecimal netAsset;
 
+			@JsonProperty("loan_net_asset")
+			private BigDecimal loanNetAsset;
+
 			@JsonProperty("loan_cny_display")
 			private BigDecimal loanCnyDisplay;
 
 			@JsonProperty("loan_btc_display")
 			private BigDecimal loanBtcDisplay;
 
+			@JsonProperty("loan_ltc_display")
+			private BigDecimal loanLtcDisplay;
+
 			@JsonProperty("available_btc_display")
 			private BigDecimal availableBtcDisplay;
+
+			@JsonProperty("available_ltc_display")
+			private BigDecimal availableLtcDisplay;
 
 			@JsonProperty("available_cny_display")
 			private BigDecimal availableCnyDisplay;
 
 			@JsonProperty("frozen_btc_display")
 			private BigDecimal frozenBtcDisplay;
+
+			@JsonProperty("frozen_ltc_display")
+			private BigDecimal frozenLtcDisplay;
 
 			@JsonProperty("frozen_cny_display")
 			private BigDecimal frozenCnyDisplay;
