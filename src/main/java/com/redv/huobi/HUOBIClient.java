@@ -114,7 +114,7 @@ public class HUOBIClient implements AutoCloseable {
 	}
 
 	public BigDecimal getMinAmountPerOrder() {
-		return new BigDecimal("0.0001");
+		return new BigDecimal("0.001");
 	}
 
 	public void buy(BigDecimal price, BigDecimal amount) throws IOException {
