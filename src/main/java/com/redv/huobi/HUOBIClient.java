@@ -114,7 +114,7 @@ public class HUOBIClient implements AutoCloseable {
 	}
 
 	public BigDecimal getMinAmountPerOrder() {
-		return new BigDecimal("0.0001");
+		return new BigDecimal("0.001");
 	}
 
 	public void buy(BigDecimal price, BigDecimal amount) throws IOException {
@@ -175,6 +175,9 @@ public class HUOBIClient implements AutoCloseable {
 
 		HttpPost post = new HttpPost(TRADE_URI);
 		post.setHeader("X-Requested-With", "XMLHttpRequest");
+		String referer = TRADE_URI.toString();
+		log.debug("Add referer header: {}", referer);
+		post.setHeader("Referer", referer);
 		post.setEntity(new UrlEncodedFormEntity(params));
 
 		TradeResult tradeResult = httpClient.execute(
