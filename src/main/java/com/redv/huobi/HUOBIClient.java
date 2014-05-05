@@ -37,7 +37,7 @@ public class HUOBIClient implements AutoCloseable {
 
 	private static final URI LOGIN_URI = URIUtils.resolve(HTTPS_BASE, "account/login.php");
 
-	private static final URI DEPTH_URI = URI.create("https://market.huobi.com/market/depth.php");
+	private static final URI DEPTH_URI = URI.create("http://market.huobi.com/market/depth.php");
 
 	private static final URI TRADE_URI = URIUtils.resolve(HTTPS_BASE, "trade/index.php");
 
