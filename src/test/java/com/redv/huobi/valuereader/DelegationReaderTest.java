@@ -26,16 +26,15 @@ public class DelegationReaderTest {
 			assertEquals(3, delegations.size());
 
 			Delegation delegation = delegations.get(0);
-			assertEquals("2014.01.04 19:16", new SimpleDateFormat(
+			assertEquals(12787624, delegation.getId());
+			assertEquals("2014.04.12 01:42", new SimpleDateFormat(
 					"yyyy.MM.dd HH:mm").format(delegation.getDate()));
-			assertEquals(Type.SELL, delegation.getType());
-			assertEquals(new BigDecimal("99999.000"), delegation.getPrice());
-			assertEquals(new BigDecimal("0.0001"), delegation.getAmount());
-			assertEquals(new BigDecimal("9.999"), delegation.getTrading());
-			assertEquals(new BigDecimal("0.000"), delegation.getFee());
-			assertEquals(new BigDecimal("9.999"), delegation.getTotal());
-
-			assertEquals(3536208, delegation.getId());
+			assertEquals(Type.BUY, delegation.getType());
+			assertEquals(new BigDecimal("0.10"), delegation.getPrice());
+			assertEquals(new BigDecimal("0.0010"), delegation.getAmount());
+			assertEquals(new BigDecimal("0.00"), delegation.getTrading());
+			assertEquals(null, delegation.getFee());
+			assertEquals(null, delegation.getTotal());
 		}
 	}
 
