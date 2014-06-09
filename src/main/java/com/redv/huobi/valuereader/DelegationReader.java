@@ -1,9 +1,9 @@
 package com.redv.huobi.valuereader;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.html.HTMLAnchorElement;
 import org.w3c.dom.html.HTMLCollection;
 import org.w3c.dom.html.HTMLDivElement;
 import org.w3c.dom.html.HTMLDocument;
@@ -30,7 +29,7 @@ public class DelegationReader extends HTMLReader<List<Delegation>> {
 
 	private final Logger log = LoggerFactory.getLogger(DelegationReader.class);
 
-	private DateFormat dateFormat = new SimpleDateFormat("yyyy.HH.dd HH:mm");
+	private DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
 	/**
 	 * {@inheritDoc}
@@ -125,16 +124,16 @@ public class DelegationReader extends HTMLReader<List<Delegation>> {
 				HTMLTableRowElement row = (HTMLTableRowElement) rows.item(j);
 				HTMLCollection cells = row.getCells();
 
-				delegation.setDate(dateFormat.parse(cells.item(0).getTextContent()));
-				delegation.setType(Type.delegationToType(cells.item(1).getTextContent()));
-				delegation.setPrice(new BigDecimal(cells.item(2).getTextContent()));
-				delegation.setAmount(new BigDecimal(cells.item(3).getTextContent()));
-				delegation.setTrading(new BigDecimal(cells.item(4).getTextContent()));
-				delegation.setFee(new BigDecimal(cells.item(5).getTextContent()));
-				delegation.setTotal(new BigDecimal(cells.item(6).getTextContent()));
-
-				HTMLTableCellElement operationCell = (HTMLTableCellElement) cells.item(7);
+				HTMLTableCellElement operationCell = (HTMLTableCellElement) cells.item(0);
 				delegation.setId(parseId(operationCell));
+
+				delegation.setDate(dateFormat.parse(cells.item(1).getTextContent()));
+				delegation.setType(Type.delegationToType(cells.item(2).getTextContent()));
+				delegation.setPrice(new BigDecimal(cells.item(3).getTextContent()));
+				delegation.setAmount(new BigDecimal(cells.item(4).getTextContent()));
+				delegation.setTrading(new BigDecimal(cells.item(5).getTextContent()));
+				// delegation.setFee(new BigDecimal(cells.item(DATE_CELL_INDEX + 5).getTextContent()));
+				// delegation.setTotal(new BigDecimal(cells.item(DATE_CELL_INDEX + 6).getTextContent()));
 
 				delegations.add(delegation);
 			}
@@ -142,18 +141,7 @@ public class DelegationReader extends HTMLReader<List<Delegation>> {
 	}
 
 	private long parseId(HTMLTableCellElement cell) {
-		NodeList children = cell.getChildNodes();
-		for (int i = 0; i < children.getLength(); i++) {
-			Node node = children.item(i);
-			if (node instanceof HTMLAnchorElement) {
-				HTMLAnchorElement anchor = (HTMLAnchorElement) node;
-				String href = anchor.getAttribute("href");
-				if (StringUtils.startsWith(href, "/trade/?a=cancel&id=")) {
-					return Long.parseLong(href.substring("/trade/?a=cancel&id=".length()));
-				}
-			}
-		}
-
-		return 0;
+		String id = cell.getFirstChild().getAttributes().getNamedItem("value").getTextContent();
+		return Integer.parseInt(id);
 	}
 }
