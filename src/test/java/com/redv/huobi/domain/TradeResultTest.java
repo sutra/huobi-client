@@ -36,4 +36,13 @@ public class TradeResultTest {
 		}
 	}
 
+	@Test
+	public void testCancel() throws IOException {
+		try (InputStream inputStream = getClass().getResourceAsStream("cancel.json")) {
+			TradeResult tr = jvr.read(inputStream);
+			assertEquals(0, tr.getCode());
+			assertEquals("取消委托成功", tr.getMsg());
+		}
+	}
+
 }
