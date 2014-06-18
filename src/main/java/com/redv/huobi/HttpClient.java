@@ -44,6 +44,8 @@ public class HttpClient implements AutoCloseable {
 
 	private final ObjectMapper objectMapper;
 
+	private HttpUriRequest lastRequest;
+
 	public HttpClient(
 			int socketTimeout,
 			int connectTimeout,
@@ -100,9 +102,19 @@ public class HttpClient implements AutoCloseable {
 			final ValueReader<T> valueReader,
 			final HttpUriRequest request) throws IOException {
 		log.debug("Executing: {}", request.getURI());
+
+		if (lastRequest != null) {
+			final String referer = lastRequest.getURI().toString();
+			log.debug("Adding header Referer: {}", referer);
+			request.addHeader("Referer", referer);
+		}
+
 		try (CloseableHttpResponse response = httpClient.execute(request)) {
 			final StatusLine statusLine = response.getStatusLine();
 			if (statusLine.getStatusCode() == SC_OK) {
+
+				this.lastRequest = request;
+
 				try (InputStream content = response.getEntity().getContent()) {
 					return valueReader.read(content);
 				}
