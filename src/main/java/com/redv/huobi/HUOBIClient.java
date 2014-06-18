@@ -43,6 +43,8 @@ public class HUOBIClient implements AutoCloseable {
 
 	private static final URI ACCOUNT_AJAX_URI = URIUtils.resolve(HTTPS_BASE, "account/ajax.php");
 
+	private static final URI CANCEL_REFERER_URI = URIUtils.resolve(TRADE_URI, "?a=delegation");
+
 	private final Logger log = LoggerFactory.getLogger(HUOBIClient.class);
 
 	private final HttpClient httpClient;
@@ -131,19 +133,16 @@ public class HUOBIClient implements AutoCloseable {
 	 * @param id the ID of the delegation to cancel.
 	 * @return the left delegations.
 	 * @throws IOException indicates I/O exception.
+	 * @deprecated the return type will be changed to void
 	 */
 	public List<Delegation> cancel(long id) throws IOException {
-		URI uri;
-		try {
-			uri = new URIBuilder(TRADE_URI)
-				.setParameter("a", "cancel")
-				.setParameter("id", String.valueOf(id))
-				.build();
-		} catch (URISyntaxException e) {
-			throw new IllegalArgumentException(e);
-		}
+		List<NameValuePair> params = new ArrayList<>(2);
+		params.add(new BasicNameValuePair("a", "cancel"));
+		params.add(new BasicNameValuePair("id", String.valueOf(id)));
 
-		return httpClient.get(uri, new DelegationReader());
+		trade(TRADE_URI, CANCEL_REFERER_URI, params);
+
+		return getDelegations();
 	}
 
 	public List<Delegation> getDelegations() throws IOException {
@@ -173,20 +172,29 @@ public class HUOBIClient implements AutoCloseable {
 		params.add(new BasicNameValuePair("price", price.toPlainString()));
 		params.add(new BasicNameValuePair("amount", amount.toPlainString()));
 
-		HttpPost post = new HttpPost(TRADE_URI);
-		post.setHeader("X-Requested-With", "XMLHttpRequest");
-		String referer = TRADE_URI.toString();
-		log.debug("Add referer header: {}", referer);
-		post.setHeader("Referer", referer);
-		post.setEntity(new UrlEncodedFormEntity(params));
+		trade(TRADE_URI, TRADE_URI, params);
+	}
 
-		TradeResult tradeResult = httpClient.execute(
-				new JsonValueReader<>(new ObjectMapper(), TradeResult.class),
-				post);
+	private void trade(URI tradeUri, URI referer, List<NameValuePair> params) throws IOException {
+		TradeResult tradeResult = executeXmlRequest(tradeUri, referer,
+				params, TradeResult.class);
 
 		if (tradeResult.getCode() != 0) {
 			throw new HUOBIClientException(tradeResult.getMsg());
 		}
+	}
+
+	private <T> T executeXmlRequest(URI uri, URI referer,
+			List<NameValuePair> params, Class<T> objectClass)
+			throws IOException {
+		HttpPost post = new HttpPost(uri);
+		post.setHeader("X-Requested-With", "XMLHttpRequest");
+		log.debug("Adding header REferer: {}", referer);
+		post.setHeader("Referer", referer.toString());
+		post.setEntity(new UrlEncodedFormEntity(params));
+		JsonValueReader<T> valueReader = new JsonValueReader<>(
+				new ObjectMapper(), objectClass);
+		return httpClient.execute(valueReader, post);
 	}
 
 	/**
