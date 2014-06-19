@@ -191,8 +191,8 @@ public class HUOBIClient implements AutoCloseable {
 			throws IOException {
 		HttpPost post = new HttpPost(uri);
 		post.setHeader("X-Requested-With", "XMLHttpRequest");
-		log.debug("Adding header REferer: {}", referer);
-		post.setHeader("Referer", referer.toString());
+		log.debug("Setting header Referer: {}", referer);
+		post.setHeader(HttpClient.REFERER_HEADER_NAME, referer.toString());
 		post.setEntity(new UrlEncodedFormEntity(params));
 		JsonValueReader<T> valueReader = new JsonValueReader<>(
 				new ObjectMapper(), objectClass);
