@@ -33,6 +33,8 @@ import com.redv.huobi.valuereader.ValueReader;
 
 public class HttpClient implements AutoCloseable {
 
+	public static final String REFERER_HEADER_NAME = "Referer";
+
 	/**
 	 * Status code (200) indicating the request succeeded normally.
 	 */
@@ -43,6 +45,8 @@ public class HttpClient implements AutoCloseable {
 	private final CloseableHttpClient httpClient;
 
 	private final ObjectMapper objectMapper;
+
+	private HttpUriRequest lastRequest;
 
 	public HttpClient(
 			int socketTimeout,
@@ -100,9 +104,19 @@ public class HttpClient implements AutoCloseable {
 			final ValueReader<T> valueReader,
 			final HttpUriRequest request) throws IOException {
 		log.debug("Executing: {}", request.getURI());
+
+		if (!request.containsHeader(REFERER_HEADER_NAME) && lastRequest != null) {
+			final String referer = lastRequest.getURI().toString();
+			log.debug("Setting header Referer: {}", referer);
+			request.setHeader(REFERER_HEADER_NAME, referer);
+		}
+
 		try (CloseableHttpResponse response = httpClient.execute(request)) {
 			final StatusLine statusLine = response.getStatusLine();
 			if (statusLine.getStatusCode() == SC_OK) {
+
+				this.lastRequest = request;
+
 				try (InputStream content = response.getEntity().getContent()) {
 					return valueReader.read(content);
 				}
