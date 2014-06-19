@@ -169,13 +169,15 @@ public class HUOBIClient implements AutoCloseable {
 			throws IOException {
 		List<NameValuePair> params = new ArrayList<>(3);
 		params.add(new BasicNameValuePair("a", type.toString()));
+		params.add(new BasicNameValuePair("trading", "guding")); // limit price
 		params.add(new BasicNameValuePair("price", price.toPlainString()));
 		params.add(new BasicNameValuePair("amount", amount.toPlainString()));
 
 		trade(TRADE_URI, TRADE_URI, params);
 	}
 
-	private void trade(URI tradeUri, URI referer, List<NameValuePair> params) throws IOException {
+	private void trade(URI tradeUri, URI referer, List<NameValuePair> params)
+			throws IOException {
 		TradeResult tradeResult = executeXmlRequest(tradeUri, referer,
 				params, TradeResult.class);
 
