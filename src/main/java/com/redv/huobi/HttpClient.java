@@ -48,6 +48,23 @@ public class HttpClient implements AutoCloseable {
 
 	private HttpUriRequest lastRequest;
 
+	/**
+	 * Interval between 2 requests.
+	 */
+	private long interval = 0;
+
+	private long lastRequestTime;
+
+	public HttpClient(
+			int socketTimeout,
+			int connectTimeout,
+			int connectionRequestTimeout,
+			long interval
+			) {
+		this(socketTimeout, connectTimeout, connectionRequestTimeout);
+		this.interval = interval;
+	}
+
 	public HttpClient(
 			int socketTimeout,
 			int connectTimeout,
@@ -103,7 +120,9 @@ public class HttpClient implements AutoCloseable {
 	public <T> T execute(
 			final ValueReader<T> valueReader,
 			final HttpUriRequest request) throws IOException {
-		log.debug("Executing: {}", request.getURI());
+		log.trace("Executing: {}", request);
+
+		sleep();
 
 		if (!request.containsHeader(REFERER_HEADER_NAME) && lastRequest != null) {
 			final String referer = lastRequest.getURI().toString();
@@ -123,6 +142,8 @@ public class HttpClient implements AutoCloseable {
 			} else {
 				throw new IOException(statusLine.getReasonPhrase());
 			}
+		} finally {
+			lastRequestTime = System.currentTimeMillis();
 		}
 	}
 
@@ -132,6 +153,18 @@ public class HttpClient implements AutoCloseable {
 	@Override
 	public void close() throws IOException {
 		httpClient.close();
+	}
+
+	private void sleep() {
+		long millis = lastRequestTime + interval - System.currentTimeMillis();
+		if (millis > 0) {
+			log.debug("Sleeping {} millis.", millis);
+			try {
+				Thread.sleep(millis);
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 }

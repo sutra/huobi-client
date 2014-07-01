@@ -66,7 +66,13 @@ public class HUOBIClient implements AutoCloseable {
 			int socketTimeout,
 			int connectTimeout,
 			int connectionRequestTimeout) {
-		httpClient = new HttpClient(socketTimeout, connectTimeout, connectionRequestTimeout);
+
+		// HUOBI allows 1 request in 1 second maximumly.
+		httpClient = new HttpClient(
+				socketTimeout,
+				connectTimeout,
+				connectionRequestTimeout,
+				1000);
 		this.email = email;
 		this.password = password;
 	}
