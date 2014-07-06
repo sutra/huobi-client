@@ -12,7 +12,8 @@
 	<name>HUOBI Client</name>
 	<description>
 	<![CDATA[
-		Client for <a href="http://www.huobi.com/">HUOBI</a>.
+		Client for <a href="http://www.huobi.com/">HUOBI</a>
+		with XChange(http://www.xeiam.com/xchange) compatibility.
 	]]></description>
 
 	<prerequisites>
@@ -151,6 +152,11 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.xeiam.xchange</groupId>
+			<artifactId>xchange-core</artifactId>
+			<version>2.1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>

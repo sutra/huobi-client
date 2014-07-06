@@ -24,11 +24,18 @@ import com.redv.huobi.domain.LoginResult;
 import com.redv.huobi.domain.MyTradeInfo;
 import com.redv.huobi.domain.TradeResult;
 import com.redv.huobi.domain.Type;
+import com.redv.huobi.service.polling.HUOBIAccountService;
+import com.redv.huobi.service.polling.HUOBIMarketDataService;
+import com.redv.huobi.service.polling.HUOBITradeService;
 import com.redv.huobi.valuereader.DelegationReader;
 import com.redv.huobi.valuereader.JsonValueReader;
 import com.redv.huobi.valuereader.LoginResultReader;
 import com.redv.huobi.valuereader.VoidValueReader;
 
+/**
+ * @deprecated Use {@link HUOBIMarketDataService}, {@link HUOBIAccountService} and {@link HUOBITradeService} instead.
+ */
+@Deprecated
 public class HUOBIClient implements AutoCloseable {
 
 	public static final String ENCODING = "UTF-8";
@@ -82,6 +89,10 @@ public class HUOBIClient implements AutoCloseable {
 		log.debug("Login result: {}", loginResult);
 	}
 
+	/**
+	 * @deprecated Use {@link HUOBIMarketDataService#getOrderBook(com.xeiam.xchange.currency.CurrencyPair, Object...)} instead.
+	 */
+	@Deprecated
 	public Depth getDepth() throws IOException {
 		final URI depthUri;
 		try {
@@ -135,6 +146,7 @@ public class HUOBIClient implements AutoCloseable {
 	 * @throws IOException indicates I/O exception.
 	 * @deprecated the return type will be changed to void
 	 */
+	@Deprecated
 	public List<Delegation> cancel(long id) throws IOException {
 		List<NameValuePair> params = new ArrayList<>(2);
 		params.add(new BasicNameValuePair("a", "cancel"));
