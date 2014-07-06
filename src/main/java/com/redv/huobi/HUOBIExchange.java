@@ -1,5 +1,6 @@
 package com.redv.huobi;
 
+import com.redv.huobi.service.polling.HUOBIAccountService;
 import com.redv.huobi.service.polling.HUOBIMarketDataService;
 import com.xeiam.xchange.BaseExchange;
 import com.xeiam.xchange.Exchange;
@@ -11,6 +12,9 @@ public class HUOBIExchange extends BaseExchange implements Exchange {
 	public void applySpecification(ExchangeSpecification exchangeSpecification) {
 		super.applySpecification(exchangeSpecification);
 		pollingMarketDataService = new HUOBIMarketDataService(exchangeSpecification);
+		if (exchangeSpecification.getApiKey() != null) {
+			pollingAccountService = new HUOBIAccountService(exchangeSpecification);
+		}
 	}
 
 	/**
@@ -25,7 +29,7 @@ public class HUOBIExchange extends BaseExchange implements Exchange {
 				+ "which committed in providing professional, secure, "
 				+ "trustworthy services for investors around the world.");
 		spec.setPlainTextUri("http://market.huobi.com/staticmarket");
-		spec.setSslUri("https://api.huobi.com/api.php");
+		spec.setSslUri("https://api.huobi.com");
 		return spec;
 	}
 

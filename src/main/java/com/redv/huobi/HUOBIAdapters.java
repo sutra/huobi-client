@@ -1,5 +1,8 @@
 package com.redv.huobi;
 
+import static com.xeiam.xchange.currency.Currencies.BTC;
+import static com.xeiam.xchange.currency.Currencies.CNY;
+import static com.xeiam.xchange.currency.Currencies.LTC;
 import static com.xeiam.xchange.dto.Order.OrderType.ASK;
 import static com.xeiam.xchange.dto.Order.OrderType.BID;
 import static com.xeiam.xchange.dto.marketdata.Trades.TradeSortType.SortByTimestamp;
@@ -7,11 +10,13 @@ import static com.xeiam.xchange.dto.marketdata.Trades.TradeSortType.SortByTimest
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.time.DateUtils;
 
+import com.redv.huobi.dto.account.HUOBIAccountInfo;
 import com.redv.huobi.dto.marketdata.HUOBIDepth;
 import com.redv.huobi.dto.marketdata.HUOBIOrderBookTAS;
 import com.redv.huobi.dto.marketdata.HUOBITicker;
@@ -20,12 +25,14 @@ import com.redv.huobi.dto.marketdata.HUOBITradeObject;
 import com.xeiam.xchange.ExchangeException;
 import com.xeiam.xchange.currency.CurrencyPair;
 import com.xeiam.xchange.dto.Order.OrderType;
+import com.xeiam.xchange.dto.account.AccountInfo;
 import com.xeiam.xchange.dto.marketdata.OrderBook;
 import com.xeiam.xchange.dto.marketdata.Ticker;
 import com.xeiam.xchange.dto.marketdata.Ticker.TickerBuilder;
 import com.xeiam.xchange.dto.marketdata.Trade;
 import com.xeiam.xchange.dto.marketdata.Trades;
 import com.xeiam.xchange.dto.trade.LimitOrder;
+import com.xeiam.xchange.dto.trade.Wallet;
 
 /**
  * Various adapters for converting from HUOBI DTOs to XChange DTOs
@@ -65,8 +72,9 @@ public final class HUOBIAdapters {
 			CurrencyPair currencyPair) {
 		List<LimitOrder> limitOrders = new ArrayList<>(orders.length);
 		for (BigDecimal[] order : orders) {
-			limitOrders.add(
-				new LimitOrder(type, order[1], currencyPair, null, null, order[0]));
+			LimitOrder limitOrder = new LimitOrder(
+				type, order[1], currencyPair, null, null, order[0]);
+			limitOrders.add(limitOrder);
 		}
 		return limitOrders;
 	}
@@ -98,7 +106,24 @@ public final class HUOBIAdapters {
 		} catch (ParseException e) {
 			throw new ExchangeException(e.getMessage(), e);
 		}
-		return new Trade(type, trade.getAmount(), currencyPair, trade.getPrice(), time, null);
+		return new Trade(
+				type,
+				trade.getAmount(),
+				currencyPair,
+				trade.getPrice(),
+				time,
+				null);
+	}
+
+	public static AccountInfo adaptAccountInfo(HUOBIAccountInfo a) {
+		Wallet cny = new Wallet(CNY,
+				a.getAvailableCnyDisplay().add(a.getFrozenCnyDisplay()));
+		Wallet btc = new Wallet(BTC,
+				a.getAvailableBtcDisplay().add(a.getFrozenBtcDisplay()));
+		Wallet ltc = new Wallet(LTC,
+				a.getAvailableLtcDisplay().add(a.getFrozenLtcDisplay()));
+		List<Wallet> wallets = Arrays.asList(cny, btc, ltc);
+		return new AccountInfo(null, wallets);
 	}
 
 }

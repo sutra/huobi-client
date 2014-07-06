@@ -1,0 +1,13 @@
+{
+	"total": "4459.38",
+	"net_asset": "4459.38",
+	"available_cny_display": "2985.40",
+	"available_btc_display": "0.3244",
+	"available_ltc_display": "0.1000",
+	"frozen_cny_display": "0.20",
+	"frozen_btc_display": "0.0530",
+	"frozen_ltc_display": "0.3000",
+	"loan_cny_display": "0.40",
+	"loan_btc_display": "0.5000",
+	"loan_ltc_display": "0.6000"
+}

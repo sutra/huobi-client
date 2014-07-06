@@ -7,10 +7,13 @@ import org.slf4j.LoggerFactory;
 
 import com.xeiam.xchange.Exchange;
 import com.xeiam.xchange.ExchangeFactory;
+import com.xeiam.xchange.ExchangeSpecification;
 import com.xeiam.xchange.currency.CurrencyPair;
+import com.xeiam.xchange.dto.account.AccountInfo;
 import com.xeiam.xchange.dto.marketdata.OrderBook;
 import com.xeiam.xchange.dto.marketdata.Ticker;
 import com.xeiam.xchange.dto.marketdata.Trades;
+import com.xeiam.xchange.service.polling.PollingAccountService;
 import com.xeiam.xchange.service.polling.PollingMarketDataService;
 
 public class Main {
@@ -18,6 +21,8 @@ public class Main {
 	private static final Logger log = LoggerFactory.getLogger(Main.class);
 
 	public static void main(String[] args) throws IOException {
+		final String accessKey = args[0], secretKey = args[1];
+
 		Exchange exchange = ExchangeFactory.INSTANCE.createExchange(HUOBIExchange.class.getName());
 		PollingMarketDataService marketDataService = exchange.getPollingMarketDataService();
 
@@ -41,6 +46,16 @@ public class Main {
 
 		// trades = marketDataService.getTrades(CurrencyPair.LTC_CNY);
 		// log.info("LTC trades: {}", trades);
+
+		ExchangeSpecification spec = new ExchangeSpecification(HUOBIExchange.class);
+		spec.setApiKey(accessKey);
+		spec.setSecretKey(secretKey);
+
+		Exchange tradeExchange = ExchangeFactory.INSTANCE.createExchange(spec);
+		PollingAccountService accountService = tradeExchange.getPollingAccountService();
+
+		AccountInfo accountInfo = accountService.getAccountInfo();
+		log.info("Account info: {}", accountInfo);
 	}
 
 }
