@@ -7,7 +7,6 @@
 	<groupId>com.redv</groupId>
 	<artifactId>huobi-client</artifactId>
 	<version>1.0.6</version>
-	<packaging>jar</packaging>
 
 	<name>HUOBI Client</name>
 	<description>
@@ -15,6 +14,34 @@
 		Client for <a href="http://www.huobi.com/">HUOBI</a>
 		with XChange(http://www.xeiam.com/xchange) compatibility.
 	]]></description>
+
+	<inceptionYear>2014</inceptionYear>
+
+	<licenses>
+		<license>
+			<name>The BSD 2-Clause License</name>
+			<url>http://opensource.org/licenses/bsd-license.php</url>
+			<distribution>manual</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>sutra</id>
+			<name>Joe Zhou</name>
+			<email>zhoushuqun@gmail.com</email>
+			<url>https://shuqun.com</url>
+			<roles>
+				<role>owner</role>
+				<role>developer</role>
+			</roles>
+			<timezone>+8</timezone>
+			<properties>
+				<legalGivenName>Shuqun</legalGivenName>
+				<legalSurname>Zhou</legalSurname>
+			</properties>
+		</developer>
+	</developers>
 
 	<prerequisites>
 		<maven>2.2.1</maven>
