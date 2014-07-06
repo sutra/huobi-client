@@ -3,7 +3,12 @@ package com.redv.huobi.domain;
 import java.math.BigDecimal;
 
 import com.redv.huobi.domain.Depth.Marketdepth.Data;
+import com.redv.huobi.dto.marketdata.HUOBIDepth;
 
+/**
+ * @deprecated Use {@link HUOBIDepth} instead.
+ */
+@Deprecated
 public class Depth extends AbstractObject {
 
 	private static final long serialVersionUID = 2014010201L;
