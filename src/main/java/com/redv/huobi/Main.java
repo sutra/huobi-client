@@ -13,8 +13,10 @@ import com.xeiam.xchange.dto.account.AccountInfo;
 import com.xeiam.xchange.dto.marketdata.OrderBook;
 import com.xeiam.xchange.dto.marketdata.Ticker;
 import com.xeiam.xchange.dto.marketdata.Trades;
+import com.xeiam.xchange.dto.trade.OpenOrders;
 import com.xeiam.xchange.service.polling.PollingAccountService;
 import com.xeiam.xchange.service.polling.PollingMarketDataService;
+import com.xeiam.xchange.service.polling.PollingTradeService;
 
 public class Main {
 
@@ -54,8 +56,15 @@ public class Main {
 		Exchange tradeExchange = ExchangeFactory.INSTANCE.createExchange(spec);
 		PollingAccountService accountService = tradeExchange.getPollingAccountService();
 
+		// Account info
 		AccountInfo accountInfo = accountService.getAccountInfo();
 		log.info("Account info: {}", accountInfo);
+
+		PollingTradeService tradeService = tradeExchange.getPollingTradeService();
+
+		// Get orders
+		OpenOrders openOrders = tradeService.getOpenOrders();
+		log.info("OpenOrders: {}", openOrders);
 	}
 
 }

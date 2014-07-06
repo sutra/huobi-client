@@ -14,6 +14,9 @@ import com.redv.huobi.dto.account.HUOBIAccountInfo;
 import com.redv.huobi.dto.marketdata.HUOBIDepth;
 import com.redv.huobi.dto.marketdata.HUOBIOrderBookTAS;
 import com.redv.huobi.dto.marketdata.HUOBITicker;
+import com.redv.huobi.dto.trade.HUOBICancelOrderResult;
+import com.redv.huobi.dto.trade.HUOBIOrder;
+import com.redv.huobi.dto.trade.HUOBIPlaceOrderResult;
 
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
@@ -37,12 +40,193 @@ public interface HUOBI {
 	@Path("detail_{symbol}_json.js")
 	public HUOBIOrderBookTAS getDetail(@PathParam("symbol") String symbol);
 
+	/**
+	 * Fetch account information.
+	 *
+	 * @param method get_account_info
+	 * @param accessKey
+	 * @param created
+	 * @param sign
+	 * @return
+	 */
 	@POST
 	@Path("apiv2.php")
 	public HUOBIAccountInfo getAccountInfo(
+		@FormParam("method") String method,
+		@FormParam("access_key") String accessKey,
+		@FormParam("created") long created,
+		@FormParam("sign") ParamsDigest sign);
+
+	/**
+	 * Fetch all proceeding orders.
+	 *
+	 * @param method get_orders
+	 * @param accessKey
+	 * @param created
+	 * @param sign
+	 * @return
+	 */
+	@POST
+	@Path("apiv2.php")
+	public HUOBIOrder[] getOrders(
+		@FormParam("method") String method,
+		@FormParam("access_key") String accessKey,
+		@FormParam("coin_type") int coinType,
+		@FormParam("created") long created,
+		@FormParam("sign") ParamsDigest sign);
+
+	/**
+	 * Fetch order detail.
+	 *
+	 * @param method order_info
+	 * @param accessKey
+	 * @param id
+	 * @param created
+	 * @param sign
+	 * @return
+	 */
+	@POST
+	@Path("apiv2.php")
+	public HUOBIOrder getOrder(
+		@FormParam("method") String method,
+		@FormParam("access_key") String accessKey,
+		@FormParam("coin_type") int coinType,
+		@FormParam("id") long id,
+		@FormParam("created") long created,
+		@FormParam("sign") ParamsDigest sign);
+
+	/**
+	 * Place limit order.
+	 *
+	 * @param method buy/sell.
+	 * @param accessKey
+	 * @param price
+	 * @param amount
+	 * @param created
+	 * @param sign
+	 * @return
+	 */
+	@POST
+	@Path("apiv2.php")
+	public HUOBIPlaceOrderResult placeLimitOrder(
+		@FormParam("method") String method,
+		@FormParam("access_key") String accessKey,
+		@FormParam("coin_type") int coinType,
+		@FormParam("price") String price,
+		@FormParam("amount") String amount,
+		@FormParam("created") long created,
+		@FormParam("sign") ParamsDigest sign);
+
+	/**
+	 * Place limit order.
+	 *
+	 * @param method buy/sell.
+	 * @param accessKey
+	 * @param price
+	 * @param amount
+	 * @param created
+	 * @param sign
+	 * @param tradePassword
+	 * @return
+	 */
+	@POST
+	@Path("apiv2.php")
+	public HUOBIPlaceOrderResult placeLimitOrder(
 			@FormParam("method") String method,
 			@FormParam("access_key") String accessKey,
+			@FormParam("coin_type") int coinType,
+			@FormParam("price") String price,
+			@FormParam("amount") String amount,
 			@FormParam("created") long created,
-			@FormParam("sign") ParamsDigest sign);
+			@FormParam("sign") ParamsDigest sign,
+			@FormParam("trade_password") String tradePassword);
+
+	/**
+	 * Place market order.
+	 *
+	 * @param method buy_market/sell_market
+	 * @param accessKey
+	 * @param coinType
+	 * @param price
+	 * @param amount
+	 * @param created
+	 * @param sign
+	 */
+	@POST
+	@Path("apiv2.php")
+	public HUOBIPlaceOrderResult placeMarketOrder(
+		@FormParam("method") String method,
+		@FormParam("access_key") String accessKey,
+		@FormParam("coin_type") int coinType,
+		@FormParam("amount") String amount,
+		@FormParam("created") long created,
+		@FormParam("sign") ParamsDigest sign);
+
+	/**
+	 * Place market order.
+	 *
+	 * @param method buy_market/sell_market
+	 * @param accessKey
+	 * @param coinType
+	 * @param price
+	 * @param amount
+	 * @param created
+	 * @param sign
+	 * @param tradePassword
+	 */
+	@POST
+	@Path("apiv2.php")
+	public HUOBIPlaceOrderResult placeMarketOrder(
+			@FormParam("method") String method,
+			@FormParam("access_key") String accessKey,
+			@FormParam("coin_type") int coinType,
+			@FormParam("amount") String amount,
+			@FormParam("created") long created,
+			@FormParam("sign") ParamsDigest sign,
+			@FormParam("trade_password") String tradePassword);
+
+	/**
+	 * Cancel order.
+	 *
+	 * @param method cancel_order
+	 * @param accessKey
+	 * @param id
+	 * @param created
+	 * @param sign
+	 */
+	@POST
+	@Path("apiv2.php")
+	public HUOBICancelOrderResult cancelOrder(
+		@FormParam("method") String method,
+		@FormParam("access_key") String accessKey,
+		@FormParam("coin_type") int coinType,
+		@FormParam("id") long id,
+		@FormParam("created") long created,
+		@FormParam("sign") ParamsDigest sign);
+
+	/**
+	 * Modify order.
+	 *
+	 * <p>The old order will be cancelled, and a new order will be placed.</p>
+	 *
+	 * @param method modify_order
+	 * @param accessKey
+	 * @param id
+	 * @param price
+	 * @param amount
+	 * @param created
+	 * @param sign MD5 signature.
+	 */
+	@POST
+	@Path("apiv2.php")
+	public HUOBIPlaceOrderResult modifyOrder(
+		@FormParam("method") String method,
+		@FormParam("access_key") String accessKey,
+		@FormParam("coin_type") int coinType,
+		@FormParam("id") long id,
+		@FormParam("price") String price,
+		@FormParam("amount") String amount,
+		@FormParam("created") long created,
+		@FormParam("sign") ParamsDigest sign);
 
 }

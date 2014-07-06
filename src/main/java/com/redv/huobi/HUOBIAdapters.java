@@ -22,6 +22,8 @@ import com.redv.huobi.dto.marketdata.HUOBIOrderBookTAS;
 import com.redv.huobi.dto.marketdata.HUOBITicker;
 import com.redv.huobi.dto.marketdata.HUOBITickerObject;
 import com.redv.huobi.dto.marketdata.HUOBITradeObject;
+import com.redv.huobi.dto.trade.HUOBIOrder;
+import com.redv.huobi.dto.trade.HUOBIPlaceOrderResult;
 import com.xeiam.xchange.ExchangeException;
 import com.xeiam.xchange.currency.CurrencyPair;
 import com.xeiam.xchange.dto.Order.OrderType;
@@ -124,6 +126,35 @@ public final class HUOBIAdapters {
 				a.getAvailableLtcDisplay().add(a.getFrozenLtcDisplay()));
 		List<Wallet> wallets = Arrays.asList(cny, btc, ltc);
 		return new AccountInfo(null, wallets);
+	}
+
+	public static String adaptPlaceOrderResult(HUOBIPlaceOrderResult result) {
+		if (result.getCode() == 0) {
+			return String.valueOf(result.getId());
+		} else {
+			throw new ExchangeException(result.getMsg());
+		}
+	}
+
+	public static List<LimitOrder> adaptOpenOrders(
+			HUOBIOrder[] orders,
+			CurrencyPair currencyPair) {
+		List<LimitOrder> openOrders = new ArrayList<>();
+		for (HUOBIOrder order : orders) {
+			openOrders.add(adaptOpenOrder(order, currencyPair));
+		}
+		return openOrders;
+	}
+
+	private static LimitOrder adaptOpenOrder(
+		HUOBIOrder order, CurrencyPair currencyPair) {
+		return new LimitOrder(
+				order.getType() == 1 ? BID : ASK,
+						order.getOrderAmount().subtract(order.getProcessedAmount()),
+						currencyPair,
+						String.valueOf(order.getId()),
+						new Date(order.getOrderTime() * 1000),
+						order.getOrderPrice());
 	}
 
 }

@@ -1,7 +1,7 @@
 package com.redv.huobi.service.polling;
 
-import java.io.IOException;
-import java.util.Arrays;
+import static com.redv.huobi.HUOBIExchange.SYMBOLS_PARAMETER;
+
 import java.util.Collection;
 
 import com.xeiam.xchange.ExchangeSpecification;
@@ -12,23 +12,25 @@ import com.xeiam.xchange.service.polling.BasePollingService;
 public class HUOBIBasePollingService extends BaseExchangeService implements
 		BasePollingService {
 
-	private static final Collection<CurrencyPair> EXCHANGE_SYMBOLS = Arrays
-			.asList(CurrencyPair.BTC_CNY, CurrencyPair.LTC_CNY);
+	private final Collection<CurrencyPair> symbols;
 
 	/**
 	 * @param exchangeSpecification
 	 */
+	@SuppressWarnings("unchecked")
 	protected HUOBIBasePollingService(
 			ExchangeSpecification exchangeSpecification) {
 		super(exchangeSpecification);
+		symbols = (Collection<CurrencyPair>) exchangeSpecification
+				.getExchangeSpecificParametersItem(SYMBOLS_PARAMETER);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Collection<CurrencyPair> getExchangeSymbols() throws IOException {
-		return EXCHANGE_SYMBOLS;
+	public Collection<CurrencyPair> getExchangeSymbols() {
+		return symbols;
 	}
 
 }

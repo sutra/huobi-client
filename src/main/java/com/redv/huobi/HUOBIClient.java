@@ -24,12 +24,18 @@ import com.redv.huobi.domain.LoginResult;
 import com.redv.huobi.domain.MyTradeInfo;
 import com.redv.huobi.domain.TradeResult;
 import com.redv.huobi.domain.Type;
+import com.redv.huobi.service.polling.HUOBIAccountService;
 import com.redv.huobi.service.polling.HUOBIMarketDataService;
+import com.redv.huobi.service.polling.HUOBITradeService;
 import com.redv.huobi.valuereader.DelegationReader;
 import com.redv.huobi.valuereader.JsonValueReader;
 import com.redv.huobi.valuereader.LoginResultReader;
 import com.redv.huobi.valuereader.VoidValueReader;
 
+/**
+ * @deprecated Use {@link HUOBIMarketDataService}, {@link HUOBIAccountService} and {@link HUOBITradeService} instead.
+ */
+@Deprecated
 public class HUOBIClient implements AutoCloseable {
 
 	public static final String ENCODING = "UTF-8";

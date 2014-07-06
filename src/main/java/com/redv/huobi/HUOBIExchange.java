@@ -1,12 +1,28 @@
 package com.redv.huobi;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.redv.huobi.service.polling.HUOBIAccountService;
 import com.redv.huobi.service.polling.HUOBIMarketDataService;
+import com.redv.huobi.service.polling.HUOBITradeService;
 import com.xeiam.xchange.BaseExchange;
 import com.xeiam.xchange.Exchange;
 import com.xeiam.xchange.ExchangeSpecification;
+import com.xeiam.xchange.currency.CurrencyPair;
 
 public class HUOBIExchange extends BaseExchange implements Exchange {
+
+	/**
+	 * The parameter name of the symbols that will focus on.
+	 */
+	public static final String SYMBOLS_PARAMETER = "symbols";
+
+	public static final String TRADE_PASSWORD_PARAMETER = "trade_password";
+
+	private static final List<CurrencyPair> SYMBOLS = Arrays.asList(
+			CurrencyPair.BTC_CNY,
+			CurrencyPair.LTC_CNY);
 
 	@Override
 	public void applySpecification(ExchangeSpecification exchangeSpecification) {
@@ -14,6 +30,7 @@ public class HUOBIExchange extends BaseExchange implements Exchange {
 		pollingMarketDataService = new HUOBIMarketDataService(exchangeSpecification);
 		if (exchangeSpecification.getApiKey() != null) {
 			pollingAccountService = new HUOBIAccountService(exchangeSpecification);
+			pollingTradeService = new HUOBITradeService(exchangeSpecification);
 		}
 	}
 
@@ -30,6 +47,7 @@ public class HUOBIExchange extends BaseExchange implements Exchange {
 				+ "trustworthy services for investors around the world.");
 		spec.setPlainTextUri("http://market.huobi.com/staticmarket");
 		spec.setSslUri("https://api.huobi.com");
+		spec.setExchangeSpecificParametersItem(SYMBOLS_PARAMETER, SYMBOLS);
 		return spec;
 	}
 

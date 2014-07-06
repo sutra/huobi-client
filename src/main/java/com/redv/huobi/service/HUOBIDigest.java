@@ -32,6 +32,7 @@ public class HUOBIDigest implements ParamsDigest {
 
 		final Map<String, String> nameValueMap = params.asHttpHeaders();
 		nameValueMap.remove("sign");
+		nameValueMap.remove("trade_password");
 		nameValueMap.put("secret_key", secretKey);
 
 		final List<Map.Entry<String, String>> nameValueList = new ArrayList<>(
