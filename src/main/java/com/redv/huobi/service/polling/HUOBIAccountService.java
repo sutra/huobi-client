@@ -1,5 +1,6 @@
 package com.redv.huobi.service.polling;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
 import com.redv.huobi.HUOBIAdapters;
@@ -19,7 +20,7 @@ public class HUOBIAccountService extends HUOBIAccountServiceRaw implements
 	 * {@inheritDoc}
 	 */
 	@Override
-	public AccountInfo getAccountInfo() {
+	public AccountInfo getAccountInfo() throws IOException {
 		return HUOBIAdapters.adaptAccountInfo(getHUOBIAccountInfo());
 	}
 

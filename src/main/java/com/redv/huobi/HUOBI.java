@@ -1,5 +1,7 @@
 package com.redv.huobi;
 
+import java.io.IOException;
+
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -24,21 +26,24 @@ public interface HUOBI {
 
 	@GET
 	@Path("ticker_{symbol}_json.js")
-	public HUOBITicker getTicker(@PathParam("symbol") String symbol);
+	public HUOBITicker getTicker(@PathParam("symbol") String symbol)
+			throws IOException;
 
 	@GET
 	@Path("depth_{symbol}_json.js")
-	public HUOBIDepth getDepth(@PathParam("symbol") String symbol);
+	public HUOBIDepth getDepth(@PathParam("symbol") String symbol)
+			throws IOException;
 
 	@GET
 	@Path("{symbol}_kline_{period}_json.js")
 	public String[][] getKline(
 			@PathParam("symbol") String symbol,
-			@PathParam("period") String period);
+			@PathParam("period") String period) throws IOException;
 
 	@GET
 	@Path("detail_{symbol}_json.js")
-	public HUOBIOrderBookTAS getDetail(@PathParam("symbol") String symbol);
+	public HUOBIOrderBookTAS getDetail(@PathParam("symbol") String symbol)
+			throws IOException;
 
 	/**
 	 * Fetch account information.
@@ -55,7 +60,8 @@ public interface HUOBI {
 		@FormParam("method") String method,
 		@FormParam("access_key") String accessKey,
 		@FormParam("created") long created,
-		@FormParam("sign") ParamsDigest sign);
+		@FormParam("sign") ParamsDigest sign)
+				throws IOException;
 
 	/**
 	 * Fetch all proceeding orders.
@@ -73,7 +79,8 @@ public interface HUOBI {
 		@FormParam("access_key") String accessKey,
 		@FormParam("coin_type") int coinType,
 		@FormParam("created") long created,
-		@FormParam("sign") ParamsDigest sign);
+		@FormParam("sign") ParamsDigest sign)
+				throws IOException;
 
 	/**
 	 * Fetch order detail.
@@ -93,7 +100,8 @@ public interface HUOBI {
 		@FormParam("coin_type") int coinType,
 		@FormParam("id") long id,
 		@FormParam("created") long created,
-		@FormParam("sign") ParamsDigest sign);
+		@FormParam("sign") ParamsDigest sign)
+				throws IOException;
 
 	/**
 	 * Place limit order.
@@ -115,7 +123,8 @@ public interface HUOBI {
 		@FormParam("price") String price,
 		@FormParam("amount") String amount,
 		@FormParam("created") long created,
-		@FormParam("sign") ParamsDigest sign);
+		@FormParam("sign") ParamsDigest sign)
+				throws IOException;
 
 	/**
 	 * Place limit order.
@@ -139,7 +148,8 @@ public interface HUOBI {
 			@FormParam("amount") String amount,
 			@FormParam("created") long created,
 			@FormParam("sign") ParamsDigest sign,
-			@FormParam("trade_password") String tradePassword);
+			@FormParam("trade_password") String tradePassword)
+					throws IOException;
 
 	/**
 	 * Place market order.
@@ -160,7 +170,8 @@ public interface HUOBI {
 		@FormParam("coin_type") int coinType,
 		@FormParam("amount") String amount,
 		@FormParam("created") long created,
-		@FormParam("sign") ParamsDigest sign);
+		@FormParam("sign") ParamsDigest sign)
+				throws IOException;
 
 	/**
 	 * Place market order.
@@ -183,7 +194,8 @@ public interface HUOBI {
 			@FormParam("amount") String amount,
 			@FormParam("created") long created,
 			@FormParam("sign") ParamsDigest sign,
-			@FormParam("trade_password") String tradePassword);
+			@FormParam("trade_password") String tradePassword)
+					throws IOException;
 
 	/**
 	 * Cancel order.
@@ -202,7 +214,8 @@ public interface HUOBI {
 		@FormParam("coin_type") int coinType,
 		@FormParam("id") long id,
 		@FormParam("created") long created,
-		@FormParam("sign") ParamsDigest sign);
+		@FormParam("sign") ParamsDigest sign)
+				throws IOException;
 
 	/**
 	 * Modify order.
@@ -227,6 +240,7 @@ public interface HUOBI {
 		@FormParam("price") String price,
 		@FormParam("amount") String amount,
 		@FormParam("created") long created,
-		@FormParam("sign") ParamsDigest sign);
+		@FormParam("sign") ParamsDigest sign)
+				throws IOException;
 
 }

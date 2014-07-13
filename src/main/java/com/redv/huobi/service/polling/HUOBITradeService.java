@@ -83,7 +83,7 @@ public class HUOBITradeService extends HUOBITradeServiceRaw implements
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean cancelOrder(String orderId) {
+	public boolean cancelOrder(String orderId) throws IOException {
 		final long id = Long.parseLong(orderId);
 
 		HUOBICancelOrderResult result = null;

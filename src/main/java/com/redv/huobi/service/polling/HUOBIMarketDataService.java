@@ -1,5 +1,7 @@
 package com.redv.huobi.service.polling;
 
+import java.io.IOException;
+
 import com.redv.huobi.HUOBIAdapters;
 import com.xeiam.xchange.ExchangeSpecification;
 import com.xeiam.xchange.currency.CurrencyPair;
@@ -19,7 +21,8 @@ public class HUOBIMarketDataService extends HUOBIMarketDataServiceRaw implements
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Ticker getTicker(CurrencyPair currencyPair, Object... args) {
+	public Ticker getTicker(CurrencyPair currencyPair, Object... args)
+			throws IOException {
 		return HUOBIAdapters.adaptTicker(
 			getHUOBITicker(currencyPair.baseSymbol.toLowerCase()),
 			currencyPair);
@@ -29,7 +32,8 @@ public class HUOBIMarketDataService extends HUOBIMarketDataServiceRaw implements
 	 * {@inheritDoc}
 	 */
 	@Override
-	public OrderBook getOrderBook(CurrencyPair currencyPair, Object... args) {
+	public OrderBook getOrderBook(CurrencyPair currencyPair, Object... args)
+			throws IOException {
 		return HUOBIAdapters.adaptOrderBook(
 			getHUOBIDepth(currencyPair.baseSymbol.toLowerCase()),
 			currencyPair);
@@ -39,7 +43,8 @@ public class HUOBIMarketDataService extends HUOBIMarketDataServiceRaw implements
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Trades getTrades(CurrencyPair currencyPair, Object... args) {
+	public Trades getTrades(CurrencyPair currencyPair, Object... args)
+			throws IOException {
 		return HUOBIAdapters.adaptTrades(
 				getHUOBIDetail(currencyPair.baseSymbol.toLowerCase()),
 				currencyPair);

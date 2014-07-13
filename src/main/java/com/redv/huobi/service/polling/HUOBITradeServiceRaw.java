@@ -3,6 +3,7 @@ package com.redv.huobi.service.polling;
 import static com.redv.huobi.HUOBIExchange.TRADE_PASSWORD_PARAMETER;
 import static com.xeiam.xchange.dto.Order.OrderType.BID;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
 import com.redv.huobi.dto.trade.HUOBICancelOrderResult;
@@ -21,7 +22,7 @@ public class HUOBITradeServiceRaw extends HUOBIBaseTradeService {
 				.getExchangeSpecificParametersItem(TRADE_PASSWORD_PARAMETER);
 	}
 
-	public HUOBIOrder[] getHUOBIOrders(int coinType) {
+	public HUOBIOrder[] getHUOBIOrders(int coinType) throws IOException {
 		return huobi.getOrders(
 			"get_orders",
 			accessKey,
@@ -30,7 +31,7 @@ public class HUOBITradeServiceRaw extends HUOBIBaseTradeService {
 			digest);
 	}
 
-	public HUOBIOrder getHUOBIOrder(int coinType, long id) {
+	public HUOBIOrder getHUOBIOrder(int coinType, long id) throws IOException {
 		return huobi.getOrder(
 			"order_info",
 			accessKey,
@@ -44,7 +45,7 @@ public class HUOBITradeServiceRaw extends HUOBIBaseTradeService {
 		OrderType type,
 		int coinType,
 		BigDecimal price,
-		BigDecimal amount) {
+		BigDecimal amount) throws IOException {
 		final String method = type == BID ? "buy" : "sell";
 
 		final HUOBIPlaceOrderResult result;
@@ -76,7 +77,7 @@ public class HUOBITradeServiceRaw extends HUOBIBaseTradeService {
 	public HUOBIPlaceOrderResult placeHUOBIMarketOrder(
 		OrderType type,
 		int coinType,
-		BigDecimal amount) {
+		BigDecimal amount) throws IOException {
 		final String method = type == BID ? "buy_market" : "sell_market";
 
 		final HUOBIPlaceOrderResult result;
@@ -103,7 +104,8 @@ public class HUOBITradeServiceRaw extends HUOBIBaseTradeService {
 		return result;
 	}
 
-	public HUOBICancelOrderResult cancelHUOBIOrder(int coinType, long id) {
+	public HUOBICancelOrderResult cancelHUOBIOrder(int coinType, long id)
+			throws IOException {
 		return huobi.cancelOrder(
 			"cancel_order",
 			accessKey,
@@ -117,7 +119,7 @@ public class HUOBITradeServiceRaw extends HUOBIBaseTradeService {
 		int coinType,
 		long id,
 		BigDecimal price,
-		BigDecimal amount) {
+		BigDecimal amount) throws IOException {
 		return huobi.modifyOrder(
 			"modify_order",
 			accessKey,
