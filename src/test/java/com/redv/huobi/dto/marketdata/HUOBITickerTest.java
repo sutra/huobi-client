@@ -11,7 +11,7 @@ public class HUOBITickerTest extends UnmarshalTest {
 
 	@Test
 	public void test() throws IOException {
-		HUOBITickerObject ticker = readValue("ticker.json", HUOBITicker.class).getTicker();
+		HUOBITickerObject ticker = readValue(getClass(), "ticker.json", HUOBITicker.class).getTicker();
 		assertEquals(new BigDecimal("86.48"), ticker.getHigh());
 		assertEquals(new BigDecimal("79.75"), ticker.getLow());
 		assertEquals(new BigDecimal("83.9"), ticker.getLast());

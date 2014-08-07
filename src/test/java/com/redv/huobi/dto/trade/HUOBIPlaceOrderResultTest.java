@@ -12,7 +12,7 @@ public class HUOBIPlaceOrderResultTest extends UnmarshalTest {
 
 	@Test
 	public void test() throws IOException {
-		HUOBIPlaceOrderResult result = readValue("place-order-result.json",
+		HUOBIPlaceOrderResult result = readValue(getClass(), "place-order-result.json",
 				HUOBIPlaceOrderResult.class);
 		assertEquals("success", result.getResult());
 		assertEquals(25841172L, result.getId());

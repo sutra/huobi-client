@@ -10,7 +10,7 @@ public class HUOBIOHLCVTest extends UnmarshalTest {
 
 	@Test
 	public void test() throws IOException {
-		String[][] ohlcv = readValue("ohlcv.json", String[][].class);
+		String[][] ohlcv = readValue(getClass(), "ohlcv.json", String[][].class);
 
 		// time
 		assertEquals("20130101000000000", ohlcv[0][0]);

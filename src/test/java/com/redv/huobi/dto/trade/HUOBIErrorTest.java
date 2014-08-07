@@ -12,7 +12,7 @@ public class HUOBIErrorTest extends UnmarshalTest {
 
 	@Test
 	public void test() throws IOException {
-		HUOBIError error = readValue("error.json", HUOBIError.class);
+		HUOBIError error = readValue(getClass(), "error.json", HUOBIError.class);
 		assertEquals(65, error.getCode());
 		assertEquals("无效的方法", error.getMsg());
 		assertEquals(1404651007, error.getTime());

@@ -13,7 +13,7 @@ public class HUOBIOrderTest extends UnmarshalTest {
 
 	@Test
 	public void testOrders() throws IOException {
-		HUOBIOrder[] orders = readValue("orders.json", HUOBIOrder[].class);
+		HUOBIOrder[] orders = readValue(getClass(), "orders.json", HUOBIOrder[].class);
 		assertEquals(8, orders.length);
 		assertEquals(25502826L, orders[0].getId());
 		assertEquals(2, orders[0].getType());
@@ -25,7 +25,7 @@ public class HUOBIOrderTest extends UnmarshalTest {
 
 	@Test
 	public void testOrder() throws IOException {
-		HUOBIOrder order = readValue("order.json", HUOBIOrder.class);
+		HUOBIOrder order = readValue(getClass(), "order.json", HUOBIOrder.class);
 		assertEquals(25502826L, order.getId());
 		assertEquals(2, order.getType());
 		assertEquals(new BigDecimal("3964.00"), order.getOrderPrice());

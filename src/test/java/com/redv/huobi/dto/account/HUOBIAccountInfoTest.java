@@ -13,7 +13,7 @@ public class HUOBIAccountInfoTest extends UnmarshalTest {
 
 	@Test
 	public void test() throws IOException {
-		HUOBIAccountInfo accountInfo = readValue("account-info.json", HUOBIAccountInfo.class);
+		HUOBIAccountInfo accountInfo = readValue(getClass(), "account-info.json", HUOBIAccountInfo.class);
 		assertEquals(new BigDecimal("4459.38"), accountInfo.getTotal());
 		assertEquals(new BigDecimal("4459.38"), accountInfo.getNetAsset());
 		assertEquals(new BigDecimal("2985.40"), accountInfo.getAvailableCnyDisplay());

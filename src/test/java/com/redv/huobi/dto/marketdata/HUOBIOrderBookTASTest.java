@@ -11,7 +11,7 @@ public class HUOBIOrderBookTASTest extends UnmarshalTest {
 
 	@Test
 	public void testHUOBIOrderBookTAS() throws IOException {
-		HUOBIOrderBookTAS obtas = readValue("detail.json", HUOBIOrderBookTAS.class);
+		HUOBIOrderBookTAS obtas = readValue(getClass(), "detail.json", HUOBIOrderBookTAS.class);
 
 		assertEquals(new BigDecimal("3904.7"), obtas.getSells()[0].getPrice());
 		assertEquals(new BigDecimal("0"), obtas.getSells()[0].getLevel());
