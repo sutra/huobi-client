@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -63,9 +64,12 @@ public final class HUOBIAdapters {
 	public static OrderBook adaptOrderBook(
 			HUOBIDepth huobiDepth,
 			CurrencyPair currencyPair) {
-		return new OrderBook(null,
-			adaptOrderBook(huobiDepth.getAsks(), ASK, currencyPair),
-			adaptOrderBook(huobiDepth.getBids(), BID, currencyPair));
+		List<LimitOrder> asks = adaptOrderBook(huobiDepth.getAsks(), ASK, currencyPair);
+		Collections.reverse(asks);
+
+		List<LimitOrder> bids = adaptOrderBook(huobiDepth.getBids(), BID, currencyPair);
+
+		return new OrderBook(null, asks, bids);
 	}
 
 	private static List<LimitOrder> adaptOrderBook(
