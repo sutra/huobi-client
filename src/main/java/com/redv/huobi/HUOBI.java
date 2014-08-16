@@ -49,10 +49,10 @@ public interface HUOBI {
 	 * Fetch account information.
 	 *
 	 * @param method get_account_info
-	 * @param accessKey
-	 * @param created
-	 * @param sign
-	 * @return
+	 * @param accessKey the access key.
+	 * @param created the time stamp of submitting the request.
+	 * @param sign the MD5 signature.
+	 * @return the account information.
 	 */
 	@POST
 	@Path("apiv2.php")
@@ -67,10 +67,10 @@ public interface HUOBI {
 	 * Fetch all proceeding orders.
 	 *
 	 * @param method get_orders
-	 * @param accessKey
-	 * @param created
-	 * @param sign
-	 * @return
+	 * @param accessKey the access key.
+	 * @param created the time stamp of submitting this request.
+	 * @param sign the MD5 signature.
+	 * @return the open orders.
 	 */
 	@POST
 	@Path("apiv2.php")
@@ -86,11 +86,11 @@ public interface HUOBI {
 	 * Fetch order detail.
 	 *
 	 * @param method order_info
-	 * @param accessKey
-	 * @param id
-	 * @param created
-	 * @param sign
-	 * @return
+	 * @param accessKey the access key.
+	 * @param id the order ID.
+	 * @param created the time stamp of submitting this request.
+	 * @param sign the MD5 signature.
+	 * @return order detail.
 	 */
 	@POST
 	@Path("apiv2.php")
@@ -107,12 +107,12 @@ public interface HUOBI {
 	 * Place limit order.
 	 *
 	 * @param method buy/sell.
-	 * @param accessKey
-	 * @param price
-	 * @param amount
-	 * @param created
-	 * @param sign
-	 * @return
+	 * @param accessKey the access key.
+	 * @param price the price of the order.
+	 * @param amount the quantity of the order.
+	 * @param created the time stamp of submitting this request.
+	 * @param sign the MD5 signature.
+	 * @return the result of placing this order, contains order ID.
 	 */
 	@POST
 	@Path("apiv2.php")
@@ -155,12 +155,11 @@ public interface HUOBI {
 	 * Place market order.
 	 *
 	 * @param method buy_market/sell_market
-	 * @param accessKey
-	 * @param coinType
-	 * @param price
-	 * @param amount
-	 * @param created
-	 * @param sign
+	 * @param accessKey the access key.
+	 * @param coinType the coin type, 1 means BTC, 2 means LTC.
+	 * @param amount the quantity of the order.
+	 * @param created the time stamp of submitting this request.
+	 * @param sign the MD5 signature.
 	 */
 	@POST
 	@Path("apiv2.php")
@@ -177,13 +176,12 @@ public interface HUOBI {
 	 * Place market order.
 	 *
 	 * @param method buy_market/sell_market
-	 * @param accessKey
-	 * @param coinType
-	 * @param price
-	 * @param amount
-	 * @param created
-	 * @param sign
-	 * @param tradePassword
+	 * @param accessKey the access key.
+	 * @param coinType the coin type, 1 means BTC, 2 means LTC.
+	 * @param amount the quantity of the order.
+	 * @param created the time stamp of submitting this request.
+	 * @param sign the MD5 signature.
+	 * @param tradePassword the trade password.
 	 */
 	@POST
 	@Path("apiv2.php")
@@ -201,10 +199,10 @@ public interface HUOBI {
 	 * Cancel order.
 	 *
 	 * @param method cancel_order
-	 * @param accessKey
-	 * @param id
-	 * @param created
-	 * @param sign
+	 * @param accessKey the access key.
+	 * @param id the ID of the order to be cancelled.
+	 * @param created the time stamp of submitting the request.
+	 * @param sign the MD5 signature.
 	 */
 	@POST
 	@Path("apiv2.php")
@@ -223,12 +221,13 @@ public interface HUOBI {
 	 * <p>The old order will be cancelled, and a new order will be placed.</p>
 	 *
 	 * @param method modify_order
-	 * @param accessKey
-	 * @param id
-	 * @param price
-	 * @param amount
-	 * @param created
-	 * @param sign MD5 signature.
+	 * @param accessKey the access key.
+	 * @param id the order ID to be cancelled.
+	 * @param price the price of the new order.
+	 * @param amount the quantity of the new order.
+	 * @param created the time stamp of submitting this request.
+	 * @param sign the MD5 signature.
+	 * @return the result of modifying order, contains the new order ID.
 	 */
 	@POST
 	@Path("apiv2.php")
