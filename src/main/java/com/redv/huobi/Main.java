@@ -1,72 +1,70 @@
 package com.redv.huobi;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.redv.huobi.domain.Delegation;
-import com.redv.huobi.domain.Depth;
-import com.redv.huobi.domain.Depth.Marketdepth.Data;
-import com.redv.huobi.domain.Funds;
-import com.redv.huobi.domain.MyTradeInfo;
+import com.xeiam.xchange.Exchange;
+import com.xeiam.xchange.ExchangeFactory;
+import com.xeiam.xchange.ExchangeSpecification;
+import com.xeiam.xchange.currency.CurrencyPair;
+import com.xeiam.xchange.dto.account.AccountInfo;
+import com.xeiam.xchange.dto.marketdata.OrderBook;
+import com.xeiam.xchange.dto.marketdata.Ticker;
+import com.xeiam.xchange.dto.marketdata.Trades;
+import com.xeiam.xchange.dto.trade.OpenOrders;
+import com.xeiam.xchange.service.polling.PollingAccountService;
+import com.xeiam.xchange.service.polling.PollingMarketDataService;
+import com.xeiam.xchange.service.polling.PollingTradeService;
 
 public class Main {
 
 	private static final Logger log = LoggerFactory.getLogger(Main.class);
 
 	public static void main(String[] args) throws IOException {
-		final String email = args[0];
-		final String password = args[1];
+		final String accessKey = args[0], secretKey = args[1];
 
-		HUOBIClient client = new HUOBIClient(email, password, 5000, 5000, 5000);
+		Exchange exchange = ExchangeFactory.INSTANCE.createExchange(HUOBIExchange.class.getName());
+		PollingMarketDataService marketDataService = exchange.getPollingMarketDataService();
 
-		// Get funds before login
-		try {
-			client.getFunds();
-		} catch (LoginRequiredException e) {
-			log.debug("login required.");
-		}
+		// Ticker
+		Ticker ticker = marketDataService.getTicker(CurrencyPair.BTC_CNY);
+		log.info("BTC ticker: {}", ticker);
 
-		// Login
-		client.login();
+		ticker = marketDataService.getTicker(CurrencyPair.LTC_CNY);
+		log.info("LTC ticker: {}", ticker);
 
 		// Depth
-		Depth depth = client.getDepth();
-		log.debug("Depth: {}", depth);
+		OrderBook depth = marketDataService.getOrderBook(CurrencyPair.BTC_CNY);
+		log.info("BTC depth: {}", depth);
 
-		for (Data bid : depth.getBids()) {
-			log.debug("Bid: {}", bid.getPrice());
-		}
+		depth = marketDataService.getOrderBook(CurrencyPair.LTC_CNY);
+		log.info("LTC depth: {}", depth);
 
-		for (Data ask : depth.getAsks()) {
-			log.debug("Ask: {}", ask.getPrice());
-		}
+		// Trades
+		Trades trades = marketDataService.getTrades(CurrencyPair.BTC_CNY);
+		log.info("BTC trades: {}", trades);
 
-		// Funds
-		Funds funds = client.getFunds();
-		log.debug("Funds: {}", funds);
+		// trades = marketDataService.getTrades(CurrencyPair.LTC_CNY);
+		// log.info("LTC trades: {}", trades);
 
-		MyTradeInfo myTradeInfo = client.getMyTradeInfo();
-		log.debug("MyTradeInfo: {}", myTradeInfo);
+		ExchangeSpecification spec = new ExchangeSpecification(HUOBIExchange.class);
+		spec.setApiKey(accessKey);
+		spec.setSecretKey(secretKey);
 
-		// sell
-		// client.sell(new BigDecimal(99999), client.getMinAmountPerOrder());
+		Exchange tradeExchange = ExchangeFactory.INSTANCE.createExchange(spec);
+		PollingAccountService accountService = tradeExchange.getPollingAccountService();
 
-		// buy
-		// client.buy(new BigDecimal("0.1"), client.getMinAmountPerOrder());
+		// Account info
+		AccountInfo accountInfo = accountService.getAccountInfo();
+		log.info("Account info: {}", accountInfo);
 
-		// getDelegations
-		List<Delegation> delegations = client.getDelegations();
-		for (Delegation delegation : delegations) {
-			log.debug("Delegation ID: {}", delegation.getId());
-		}
+		PollingTradeService tradeService = tradeExchange.getPollingTradeService();
 
-		// Cancel
-		// client.cancel(1);
-
-		client.close();
+		// Get orders
+		OpenOrders openOrders = tradeService.getOpenOrders();
+		log.info("OpenOrders: {}", openOrders);
 	}
 
 }
