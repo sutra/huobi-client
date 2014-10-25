@@ -1,0 +1,18 @@
+{
+	"version":1,
+	"msgType":"lastKLine",
+	"symbolId":"btccny",
+	"payload":{
+		"_id":1414079040,
+		"symbolId":"btccny",
+		"time":1414079040,
+		"period":"1min",
+		"priceOpen":2214.98,
+		"priceHigh":2215,
+		"priceLow":2213.95,
+		"priceLast":2213.95,
+		"amount":4.6168,
+		"volume":10223.067363000002,
+		"count":13
+	}
+}

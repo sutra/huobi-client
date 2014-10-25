@@ -1,0 +1,60 @@
+{
+	"version":1,
+	"msgType":"marketDepthTopDiff",
+	"symbolId":"btccny",
+	"payload":{
+		"symbolId":"btccny",
+		"version":1414079071044,
+		"versionOld":1414079069374,
+		"bidInsert":{
+			"price":[
+				2213.01
+			],
+			"amount":[
+				5.6636
+			],
+			"row":[
+				1
+			]
+		},
+		"bidDelete":[
+			149
+		],
+		"bidUpdate":{
+			"price":[
+				
+			],
+			"amount":[
+				
+			],
+			"row":[
+				
+			]
+		},
+		"askInsert":{
+			"price":[
+				2215.98
+			],
+			"amount":[
+				1.5296
+			],
+			"row":[
+				9
+			]
+		},
+		"askDelete":[
+			149
+		],
+		"askUpdate":{
+			"price":[
+				2213.95
+			],
+			"amount":[
+				0.7708
+			],
+			"row":[
+				0
+			]
+		}
+	}
+}

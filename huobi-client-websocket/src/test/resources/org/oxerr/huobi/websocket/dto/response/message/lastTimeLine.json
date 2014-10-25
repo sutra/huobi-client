@@ -1,0 +1,14 @@
+{
+	"version":1,
+	"msgType":"lastTimeLine",
+	"symbolId":"btccny",
+	"payload":{
+		"_id":1414078140,
+		"symbolId":"btccny",
+		"time":1414078140,
+		"priceLast":2219.28,
+		"amount":8.3297,
+		"volume":18488.978877,
+		"count":7
+	}
+}
