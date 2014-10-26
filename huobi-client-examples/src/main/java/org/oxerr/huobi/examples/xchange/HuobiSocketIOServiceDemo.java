@@ -59,7 +59,7 @@ public class HuobiSocketIOServiceDemo {
 		// Start streaming service.
 		streamingExchangeService.connect();
 
-		// Demonstrate for 30 seconds.
+		// Demonstrate for 1 minute.
 		TimeUnit.MINUTES.sleep(1);
 
 		// Disconnect streaming service.
