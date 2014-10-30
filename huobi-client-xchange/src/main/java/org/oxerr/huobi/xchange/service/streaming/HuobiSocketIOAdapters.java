@@ -53,15 +53,15 @@ public final class HuobiSocketIOAdapters {
 	}
 
 	public static Ticker adaptTicker(MarketOverviewPayload marketOverviewPayload) {
-		return Ticker.TickerBuilder.newInstance()
-			.withTimestamp(new Date())
-			.withCurrencyPair(adaptCurrencyPair(marketOverviewPayload.getSymbolId()))
-			.withLast(marketOverviewPayload.getPriceNew())
-			.withHigh(marketOverviewPayload.getPriceHigh())
-			.withLow(marketOverviewPayload.getPriceLow())
-			.withAsk(marketOverviewPayload.getPriceAsk())
-			.withBid(marketOverviewPayload.getPriceBid())
-			.withVolume(marketOverviewPayload.getTotalAmount())
+		return new Ticker.Builder()
+			.timestamp(new Date())
+			.currencyPair(adaptCurrencyPair(marketOverviewPayload.getSymbolId()))
+			.last(marketOverviewPayload.getPriceNew())
+			.high(marketOverviewPayload.getPriceHigh())
+			.low(marketOverviewPayload.getPriceLow())
+			.ask(marketOverviewPayload.getPriceAsk())
+			.bid(marketOverviewPayload.getPriceBid())
+			.volume(marketOverviewPayload.getTotalAmount())
 			.build();
 	}
 
@@ -74,8 +74,8 @@ public final class HuobiSocketIOAdapters {
 		// asks should be sorted ascending
 		for (int i = 0, l = depth.getAskPrice().length; i < l; i++) {
 			LimitOrder limitOrder = new LimitOrder.Builder(ASK, currencyPair)
-				.setLimitPrice(depth.getAskPrice()[i])
-				.setTradableAmount(depth.getAskAmount()[i])
+				.limitPrice(depth.getAskPrice()[i])
+				.tradableAmount(depth.getAskAmount()[i])
 				.build();
 			asks.add(limitOrder);
 		}
@@ -83,8 +83,8 @@ public final class HuobiSocketIOAdapters {
 		// bids should be sorted descending
 		for (int i = 0, l = depth.getBidPrice().length; i < l; i++) {
 			LimitOrder limitOrder = new LimitOrder.Builder(BID, currencyPair)
-				.setLimitPrice(depth.getBidPrice()[i])
-				.setTradableAmount(depth.getBidAmount()[i]).build();
+				.limitPrice(depth.getBidPrice()[i])
+				.tradableAmount(depth.getBidAmount()[i]).build();
 			bids.add(limitOrder);
 		}
 
