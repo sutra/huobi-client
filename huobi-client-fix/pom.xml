@@ -44,11 +44,4 @@
 			<artifactId>mina-filter-ssl</artifactId>
 		</dependency>
 	</dependencies>
-	<repositories>
-		<repository>
-			<id>keytwo.net</id>
-			<name>Keytwo.net Repository</name>
-			<url>http://audiobox.keytwo.net</url>
-		</repository>
-	</repositories>
 </project>
