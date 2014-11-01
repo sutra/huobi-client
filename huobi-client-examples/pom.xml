@@ -32,6 +32,11 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
+			<artifactId>huobi-client-fix</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>huobi-client-xchange</artifactId>
 			<version>${project.version}</version>
 		</dependency>

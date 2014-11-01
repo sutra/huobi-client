@@ -25,6 +25,8 @@
 	</root>
 
 	<logger name="io.socket" level="WARN" />
+	<logger name="quickfix" level="TRACE" />
+	<logger name="org.quickfixj" level="TRACE" />
 	<logger name="org.oxerr.huobi" level="TRACE" />
 
 </configuration>

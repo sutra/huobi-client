@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+		http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.oxerr</groupId>
+		<artifactId>huobi-client</artifactId>
+		<version>1.2.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>huobi-client-fix</artifactId>
+
+	<name>Huobi Client - FIX</name>
+	<description>
+	<![CDATA[
+		Client for <a href="https://www.huobi.com">Huobi</a> FIX API.
+	]]></description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>quickfixj</groupId>
+			<artifactId>quickfixj-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>quickfixj</groupId>
+			<artifactId>quickfixj-msg-fix44</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-filter-ssl</artifactId>
+		</dependency>
+	</dependencies>
+	<repositories>
+		<repository>
+			<id>keytwo.net</id>
+			<name>Keytwo.net Repository</name>
+			<url>http://audiobox.keytwo.net</url>
+		</repository>
+	</repositories>
+</project>
