@@ -14,6 +14,10 @@ public class HuobiMessageFactory extends quickfix.fix44.MessageFactory {
 			return new AccountInfoResponse();
 		}
 
+		if (HuobiOrderInfoResponse.MSGTYPE.equals(msgType)) {
+			return new HuobiOrderInfoResponse();
+		}
+
 		return super.create(beginString, msgType);
 	}
 

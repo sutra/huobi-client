@@ -92,6 +92,8 @@ public abstract class HuobiApplication extends MessageCracker implements
 	}
 
 	public void sendMessage(final Message message, final SessionID sessionId) {
+		log.trace("sending message: {}", message);
+
 		executorService.execute(new Runnable() {
 
 			@Override

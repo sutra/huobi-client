@@ -45,7 +45,7 @@ public class AccountInfoResponse extends quickfix.fix44.Message {
 	}
 
 	public boolean isSetAccount() {
-		return isSetField(1);
+		return isSetField(Account.FIELD);
 	}
 
 	public void set(AccReqID value) {
@@ -68,7 +68,7 @@ public class AccountInfoResponse extends quickfix.fix44.Message {
 	}
 
 	public boolean isSetAccReqID() {
-		return isSetField(1622);
+		return isSetField(AccReqID.FIELD);
 	}
 
 	public void set(AvailableCny value) {
@@ -91,7 +91,7 @@ public class AccountInfoResponse extends quickfix.fix44.Message {
 	}
 
 	public boolean isSetAvailableCny() {
-		return isSetField(1623);
+		return isSetField(AvailableCny.FIELD);
 	}
 
 	public void set(AvailableBtc value) {
@@ -114,7 +114,7 @@ public class AccountInfoResponse extends quickfix.fix44.Message {
 	}
 
 	public boolean isSetAvailableBtc() {
-		return isSetField(1624);
+		return isSetField(AvailableBtc.FIELD);
 	}
 
 	public void set(AvailableLtc value) {
@@ -137,7 +137,7 @@ public class AccountInfoResponse extends quickfix.fix44.Message {
 	}
 
 	public boolean isSetAvailableLtc() {
-		return isSetField(1625);
+		return isSetField(AvailableLtc.FIELD);
 	}
 
 	public void set(FrozenLtc value) {
@@ -160,7 +160,7 @@ public class AccountInfoResponse extends quickfix.fix44.Message {
 	}
 
 	public boolean isSetFrozenLtc() {
-		return isSetField(1626);
+		return isSetField(FrozenLtc.FIELD);
 	}
 
 	public void set(FrozenBtc value) {
@@ -183,7 +183,7 @@ public class AccountInfoResponse extends quickfix.fix44.Message {
 	}
 
 	public boolean isSetFrozenBtc() {
-		return isSetField(1627);
+		return isSetField(FrozenBtc.FIELD);
 	}
 
 	public void set(FrozenCny value) {
@@ -206,7 +206,7 @@ public class AccountInfoResponse extends quickfix.fix44.Message {
 	}
 
 	public boolean isSetFrozenCny() {
-		return isSetField(1628);
+		return isSetField(FrozenCny.FIELD);
 	}
 
 }
