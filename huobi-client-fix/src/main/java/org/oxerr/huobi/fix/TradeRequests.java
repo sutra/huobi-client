@@ -2,7 +2,6 @@ package org.oxerr.huobi.fix;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.UUID;
 
 import org.oxerr.huobi.fix.field.AccReqID;
 import org.oxerr.huobi.fix.fix44.AccountInfoRequest;
@@ -32,18 +31,19 @@ public final class TradeRequests {
 	}
 
 	public static AccountInfoRequest buildAccountInfoRequest(
+			String accReqId,
 			String accessKey,
 			String symbol) {
 		AccountInfoRequest message = new AccountInfoRequest();
 		message.set(new Account(accessKey));
-		message.set(new AccReqID(UUID.randomUUID().toString()));
+		message.set(new AccReqID(accReqId));
 		message.set(new Symbol(symbol));
 		return message;
 	}
 
 	public static NewOrderSingle buildNewOrderSingle(
-			String accessKey,
 			String clOrdId,
+			String accessKey,
 			char side,
 			char ordType,
 			BigDecimal minQty,
@@ -62,8 +62,8 @@ public final class TradeRequests {
 	}
 
 	public static OrderCancelRequest buildOrderCancelRequest(
-			String origClOrdId,
 			String clOrdId,
+			String origClOrdId,
 			char side,
 			String symbol) {
 		OrderCancelRequest message = new OrderCancelRequest(
@@ -76,8 +76,8 @@ public final class TradeRequests {
 	}
 
 	public static OrderMassStatusRequest buildOrderMassStatusRequest(
-			String accessKey,
 			String massStatusReqId,
+			String accessKey,
 			int massStatusReqType,
 			String symbol) {
 		OrderMassStatusRequest message = new OrderMassStatusRequest(
@@ -89,8 +89,8 @@ public final class TradeRequests {
 	}
 
 	public static OrderStatusRequest buildOrderStatusRequest(
-			String accessKey,
 			String clOrdId,
+			String accessKey,
 			char side,
 			String symbol) {
 		OrderStatusRequest message = new OrderStatusRequest(

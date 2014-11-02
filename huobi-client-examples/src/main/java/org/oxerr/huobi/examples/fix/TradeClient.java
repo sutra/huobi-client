@@ -2,7 +2,6 @@ package org.oxerr.huobi.examples.fix;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -27,7 +26,6 @@ import quickfix.SessionSettings;
 import quickfix.SocketInitiator;
 import quickfix.UnsupportedMessageType;
 import quickfix.field.MassStatusReqType;
-import quickfix.field.OrdType;
 import quickfix.field.Side;
 import quickfix.fix44.ExecutionReport;
 import quickfix.fix44.OrderCancelReject;
@@ -56,6 +54,7 @@ public class TradeClient {
 			public void onMessage(AccountInfoResponse message,
 					SessionID sessionId) throws FieldNotFound,
 					UnsupportedMessageType, IncorrectTagValue {
+				log.info("AccReqID: {}", message.getAccReqID().getValue());
 				log.info("Available BTC: {}", message.getAvailableBtc()
 						.getValue());
 				log.info("Available LTC: {}", message.getAvailableLtc()
@@ -94,11 +93,11 @@ public class TradeClient {
 						message.getClOrdID().getValue(),
 						message.getOrderID().getValue(),
 						message.getSide().getValue() == Side.BUY ? "buy" : "sell",
-						message.getOrderQty().getValue(),
-						message.getPrice().getValue(),
-						message.getAvgPx().getValue(),
-						message.getCumQty().getValue(),
-						message.getOrdStatus().getValue());
+						message.isSetOrderQty() ? message.getOrderQty().getValue() : null,
+						message.isSetPrice() ? message.getPrice().getValue() : null,
+						message.isSetAvgPx() ? message.getAvgPx().getValue() : null,
+						message.isSetCumQty() ? message.getCumQty().getValue() : null,
+						message.isSetOrdStatus() ? message.getOrdStatus().getValue() : null);
 
 				if (!TradeClient.this.oneOrderDemoed) {
 					TradeClient.this.oneOrderDemoed = true;
@@ -150,24 +149,26 @@ public class TradeClient {
 	}
 
 	public void demo() throws InterruptedException, FieldNotFound {
-		log.info("Requesting AccountInfo...");
-		app.requestAccountInfo("btc", sessionId);
+		String accReqId = UUID.randomUUID().toString();
+		log.info("Requesting AccountInfo, accReqId: {}", accReqId);
+		app.requestAccountInfo(accReqId, "btc", sessionId);
 
-		log.info("Requesting mass order stauts...");
-		app.requestOrderMassStatus(UUID.randomUUID().toString(),
+		String massStatusReqId = UUID.randomUUID().toString();
+		log.info("Requesting mass order stauts, massStatusReqId: {}", massStatusReqId);
+		app.requestOrderMassStatus(massStatusReqId,
 				MassStatusReqType.STATUS_FOR_ALL_ORDERS, "btccny", sessionId);
 
-		log.info("Placing a limit order...");
+		/*
 		String clOrdId = UUID.randomUUID().toString();
+		log.info("Placing a limit order:, clOrdId: {}", clOrdId);
 		app.placeOrder(clOrdId, Side.BUY, OrdType.LIMIT, new BigDecimal("0.001"), new BigDecimal("1"), "btccny", sessionId);
+		*/
 
 		/*
-		String orderId = "56470693";
-		String cancelationId = UUID.randomUUID().toString();
-		log.info("Canceling the order {}, requested cancelation ID: {}", orderId, cancelationId);
-		app.cancelOrder(orderId, cancelationId, Side.BUY, "btccny", sessionId);
-		// query order status for the cancelled order
-		app.requestOrderStatus(orderId, Side.BUY, "btccny", sessionId);
+		String orderId = "56539539";
+		String clOrdId = UUID.randomUUID().toString();
+		log.info("Canceling the order {}, requested cancelation ID: {}", orderId, clOrdId);
+		app.cancelOrder(clOrdId, orderId, Side.BUY, "btccny", sessionId);
 		*/
 	}
 

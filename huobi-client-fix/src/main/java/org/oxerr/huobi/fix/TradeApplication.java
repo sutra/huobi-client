@@ -100,39 +100,56 @@ public class TradeApplication extends HuobiApplication {
 			throws FieldNotFound, UnsupportedMessageType, IncorrectTagValue {
 	}
 
-	public void requestAccountInfo(String symbol, SessionID sessionId) {
-		AccountInfoRequest message = TradeRequests.buildAccountInfoRequest(
-				accessKey, symbol);
-		sendMessage(message, sessionId);
-	}
-
-	public void placeOrder(String clOrdId, char side, char ordType,
-			BigDecimal minQty, BigDecimal price, String symbol,
+	public void requestAccountInfo(
+			String accReqId,
+			String symbol,
 			SessionID sessionId) {
-		NewOrderSingle message = TradeRequests.buildNewOrderSingle(accessKey,
-				clOrdId, side, ordType, minQty, price, symbol);
+		AccountInfoRequest message = TradeRequests.buildAccountInfoRequest(
+				accReqId, accessKey, symbol);
 		sendMessage(message, sessionId);
 	}
 
-	public void cancelOrder(String origClOrdId, String clOrdId, char side,
-			String symbol, SessionID sessionId) {
+	public void placeOrder(
+			String clOrdId,
+			char side,
+			char ordType,
+			BigDecimal minQty,
+			BigDecimal price,
+			String symbol,
+			SessionID sessionId) {
+		NewOrderSingle message = TradeRequests.buildNewOrderSingle(
+				clOrdId, accessKey, side, ordType, minQty, price, symbol);
+		sendMessage(message, sessionId);
+	}
+
+	public void cancelOrder(
+			String clOrdId,
+			String origClOrdId,
+			char side,
+			String symbol,
+			SessionID sessionId) {
 		OrderCancelRequest message = TradeRequests.buildOrderCancelRequest(
-				origClOrdId, clOrdId, side, symbol);
+				clOrdId, origClOrdId, side, symbol);
 		sendMessage(message, sessionId);
 	}
 
-	public void requestOrderMassStatus(String massStatusReqId,
-			int massStatusReqType, String symbol, SessionID sessionId) {
-		OrderMassStatusRequest message = TradeRequests
-				.buildOrderMassStatusRequest(accessKey, massStatusReqId,
-						massStatusReqType, symbol);
+	public void requestOrderMassStatus(
+			String massStatusReqId,
+			int massStatusReqType,
+			String symbol,
+			SessionID sessionId) {
+		OrderMassStatusRequest message = TradeRequests.buildOrderMassStatusRequest(
+				massStatusReqId, accessKey, massStatusReqType, symbol);
 		sendMessage(message, sessionId);
 	}
 
-	public void requestOrderStatus(String clOrdId, char side, String symbol,
+	public void requestOrderStatus(
+			String clOrdId,
+			char side,
+			String symbol,
 			SessionID sessionId) {
 		OrderStatusRequest message = TradeRequests.buildOrderStatusRequest(
-				accessKey, clOrdId, side, symbol);
+				clOrdId, accessKey, side, symbol);
 		sendMessage(message, sessionId);
 	}
 
