@@ -2,7 +2,6 @@ package org.oxerr.huobi.websocket.dto.response.payload;
 
 import java.math.BigDecimal;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.oxerr.huobi.websocket.dto.Depth;
 import org.oxerr.huobi.websocket.dto.DepthDiff;
 import org.oxerr.huobi.websocket.dto.response.historydata.ReqMarketDepthTopResponse;
@@ -122,6 +121,7 @@ public class ReqMarketDepthTopPayload extends AbstractPayload implements Depth {
 
 		this.version = diff.getVersion();
 
+		// bid update
 		for (int i = 0, l = diff.getBidUpdate().getRow().length; i < l; i++) {
 			BigDecimal price = diff.getBidUpdate().getPrice()[i];
 			BigDecimal amount = diff.getBidUpdate().getAmount()[i];
@@ -132,24 +132,27 @@ public class ReqMarketDepthTopPayload extends AbstractPayload implements Depth {
 			this.bidTotal[row] = price.multiply(amount);
 		}
 
+		// bid delete
+		for (int i = 0, l = diff.getBidDelete().length; i < l; i++) {
+			int row = diff.getBidDelete()[i];
+
+			this.bidPrice[row] = null;
+			this.bidAmount[row] = null;
+			this.bidTotal[row] = null;
+		}
+
+		// bid insert
 		for (int i = 0, l = diff.getBidInsert().getRow().length; i < l; i++) {
 			BigDecimal price = diff.getBidInsert().getPrice()[i];
 			BigDecimal amount = diff.getBidInsert().getAmount()[i];
 			int row = diff.getBidInsert().getRow()[i];
 
-			this.bidPrice = ArrayUtils.add(this.bidPrice, row, price);
-			this.bidAmount = ArrayUtils.add(this.bidAmount, row, amount);
-			this.bidTotal = ArrayUtils.add(this.bidTotal, row, price.multiply(amount));
+			this.bidPrice[row] = price;
+			this.bidAmount[row] = amount;
+			this.bidTotal[row] = price.multiply(amount);
 		}
 
-		for (int i = 0, l = diff.getBidDelete().length; i < l; i++) {
-			int row = diff.getBidDelete()[i];
-
-			this.bidPrice = ArrayUtils.remove(this.bidPrice, row);
-			this.bidAmount = ArrayUtils.remove(this.bidAmount, row);
-			this.bidTotal = ArrayUtils.remove(this.bidTotal, row);
-		}
-
+		// ask update
 		for (int i = 0, l = diff.getAskUpdate().getRow().length; i < l; i++) {
 			BigDecimal price = diff.getAskUpdate().getPrice()[i];
 			BigDecimal amount = diff.getAskUpdate().getAmount()[i];
@@ -160,22 +163,24 @@ public class ReqMarketDepthTopPayload extends AbstractPayload implements Depth {
 			this.askTotal[row] = price.multiply(amount);
 		}
 
+		// ask delete
+		for (int i = 0, l = diff.getAskDelete().length; i < l; i++) {
+			int row = diff.getAskDelete()[i];
+
+			this.askPrice[row] = null;
+			this.askAmount[row] = null;
+			this.askTotal[row] = null;
+		}
+
+		// ask insert
 		for (int i = 0, l = diff.getAskInsert().getRow().length; i < l; i++) {
 			BigDecimal price = diff.getAskInsert().getPrice()[i];
 			BigDecimal amount = diff.getAskInsert().getAmount()[i];
 			int row = diff.getAskInsert().getRow()[i];
 
-			this.askPrice = ArrayUtils.add(this.askPrice, row, price);
-			this.askAmount = ArrayUtils.add(this.askAmount, row, amount);
-			this.askTotal = ArrayUtils.add(this.askTotal, row, price.multiply(amount));
-		}
-
-		for (int i = 0, l = diff.getAskDelete().length; i < l; i++) {
-			int row = diff.getAskDelete()[i];
-
-			this.askPrice = ArrayUtils.remove(this.askPrice, row);
-			this.askAmount = ArrayUtils.remove(this.askAmount, row);
-			this.askTotal = ArrayUtils.remove(this.askTotal, row);
+			this.askPrice[row] = price;
+			this.askAmount[row] = amount;
+			this.askTotal[row] = price.multiply(amount);
 		}
 	}
 

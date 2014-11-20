@@ -130,8 +130,8 @@ public class TradeClient {
 		};
 
 		SessionSettings settings;
-		try (InputStream inputStream = MarketClient.class
-				.getResourceAsStream("trade.cfg")) {
+		try (InputStream inputStream = getClass().getResourceAsStream(
+				"trade.cfg")) {
 			settings = new SessionSettings(inputStream);
 		}
 

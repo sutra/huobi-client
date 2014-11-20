@@ -111,7 +111,7 @@ public class ResponseFactory {
 
 	public Response<? extends Payload> fromJson(JsonObject jsonObject) {
 		String msgType = jsonObject.get("msgType").getAsString();
-		log.debug("msgType: {}", msgType);
+		log.trace("msgType: {}, json: {}", msgType, jsonObject);
 
 		Class<? extends Response<? extends Payload>> responseClass = responseTypes.get(msgType);
 
