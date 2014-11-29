@@ -117,7 +117,7 @@ public class ReqMarketDepthTopPayload extends AbstractPayload implements Depth {
 	public void merge(DepthDiff diff) {
 		if (diff.getVersionOld() != this.getVersion()) {
 			throw new IllegalArgumentException(
-					String.format("Mismatched version. Depth version is {}, but diff expected old version is %s.",
+					String.format("Mismatched version. Depth version is %s, but diff expected old version is %s.",
 							diff.getVersionOld(), this.getVersion()));
 		}
 
