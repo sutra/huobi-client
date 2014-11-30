@@ -66,7 +66,7 @@ public final class HuobiSocketIOAdapters {
 	}
 
 	public static OrderBook adaptOrderBook(Depth depth) {
-		Date timeStamp = new Date(depth.getTime());
+		Date timeStamp = new Date(depth.getVersion());
 		List<LimitOrder> asks = new ArrayList<>(depth.getAskPrice().length);
 		List<LimitOrder> bids = new ArrayList<>(depth.getBidPrice().length);
 		CurrencyPair currencyPair = adaptCurrencyPair(depth.getSymbolId());
