@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.java_websocket.WebSocket.READYSTATE;
 import org.oxerr.huobi.websocket.HuobiSocketClient;
@@ -24,6 +25,8 @@ import org.oxerr.huobi.websocket.dto.request.Request;
 import org.oxerr.huobi.websocket.dto.request.marketdata.Message;
 import org.oxerr.huobi.websocket.dto.request.marketdata.PushType;
 import org.oxerr.huobi.websocket.event.HuobiSocketAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.xeiam.xchange.ExchangeSpecification;
@@ -38,6 +41,7 @@ import com.xeiam.xchange.service.streaming.StreamingExchangeService;
  */
 public class HuobiSocketIOService implements StreamingExchangeService {
 
+	private final Logger log = LoggerFactory.getLogger(HuobiSocketIOService.class);
 	private final HuobiSocketClient client;
 	private final Message message;
 	private final Gson gson = new Gson();
@@ -76,8 +80,12 @@ public class HuobiSocketIOService implements StreamingExchangeService {
 
 		client.addListener(new HuobiSocketAdapter() {
 
+			private final AtomicInteger reconnectAttempts = new AtomicInteger();
+
 			@Override
 			public void onConnect() {
+				reconnectAttempts.set(0);
+
 				webSocketStatus = OPEN;
 				putEvent(CONNECT);
 
@@ -103,6 +111,29 @@ public class HuobiSocketIOService implements StreamingExchangeService {
 			public void onError(SocketIOException socketIOException) {
 				putEvent(new DefaultExchangeEvent(ERROR,
 						socketIOException.getMessage(), socketIOException));
+
+				final int attempts = reconnectAttempts.incrementAndGet();
+
+				if (configuration.getMaxReconnectAttempts() <= 0
+						|| attempts <= configuration.getMaxReconnectAttempts()) {
+					sleepQuietly(configuration.getReconnectWaitTimeInMs());
+					log.trace("Reconnecting({}/{})...",
+							attempts,
+							configuration.getMaxReconnectAttempts());
+					client.connect();
+				} else {
+					log.warn("Reconnect attempts reached the max attempts {}, giving up.",
+							configuration.getMaxReconnectAttempts());
+				}
+			}
+
+			private void sleepQuietly(long millis) {
+				log.trace("Sleeping {} milliseconds...", millis);
+
+				try {
+					Thread.sleep(millis);
+				} catch (InterruptedException e) {
+				}
 			}
 
 		});

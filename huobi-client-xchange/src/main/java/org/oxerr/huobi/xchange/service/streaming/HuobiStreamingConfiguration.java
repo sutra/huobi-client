@@ -10,6 +10,8 @@ import com.xeiam.xchange.service.streaming.ExchangeStreamingConfiguration;
 public class HuobiStreamingConfiguration implements
 		ExchangeStreamingConfiguration {
 
+	private final int maxReconnectAttempts;
+	private final int reconnectWaitTimeInMs;
 	private final Set<CurrencyPair> currencyPairs = new HashSet<>();
 
 	public HuobiStreamingConfiguration(CurrencyPair... currencyPairs) {
@@ -17,9 +19,17 @@ public class HuobiStreamingConfiguration implements
 	}
 
 	public HuobiStreamingConfiguration(Iterable<CurrencyPair> currencyPairs) {
+		this(currencyPairs, 0, 0);
+	}
+
+	public HuobiStreamingConfiguration(Iterable<CurrencyPair> currencyPairs,
+			int maxReconnectAttempts, int reconnectWaitTimeInMs) {
 		for (CurrencyPair currencyPair : currencyPairs) {
 			this.currencyPairs.add(currencyPair);
 		}
+
+		this.maxReconnectAttempts = maxReconnectAttempts;
+		this.reconnectWaitTimeInMs = reconnectWaitTimeInMs;
 	}
 
 	/**
@@ -27,7 +37,7 @@ public class HuobiStreamingConfiguration implements
 	 */
 	@Override
 	public int getMaxReconnectAttempts() {
-		return 0;
+		return maxReconnectAttempts;
 	}
 
 	/**
@@ -35,7 +45,7 @@ public class HuobiStreamingConfiguration implements
 	 */
 	@Override
 	public int getReconnectWaitTimeInMs() {
-		return 0;
+		return reconnectWaitTimeInMs;
 	}
 
 	/**
