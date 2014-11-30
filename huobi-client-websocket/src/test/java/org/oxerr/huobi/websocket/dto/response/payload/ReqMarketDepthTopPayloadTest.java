@@ -16,35 +16,40 @@ public class ReqMarketDepthTopPayloadTest extends AbstractResponseTest {
 
 	@Test
 	public void testMerge1() throws IOException {
-		testMerge("1416496077000/reqMarketDepth.json",
-				"1416496077000/marketDepthDiff.json");
+		testMerge("1416496077000/reqMarketDepth.json", 1416496077000L,
+				new String[] { "1416496077000/marketDepthDiff.json", },
+				new long[] { 1416496078000L, });
 	}
 
 	@Test
 	public void testMerge2() throws IOException {
 		testMerge("1416498909000/reqMarketDepth.json",
-				"1416498909000/marketDepthDiff1.json",
-				"1416498909000/marketDepthDiff2.json");
+				1416498909000L,
+				new String[] { "1416498909000/marketDepthDiff1.json",
+				"1416498909000/marketDepthDiff2.json", },
+				new long[] { 1416498910000L, 1416498911000L });
 	}
 
-	public void testMerge(String depthJson, String... diffJsons) throws IOException {
+	public void testMerge(String depthJson, long initialVersion,
+			String[] diffJsons, long[] versions) throws IOException {
 
 		ReqMarketDepthResponse reqMarketDepthResponse = fromJson(depthJson,
 				ReqMarketDepthResponse.class);
 		Depth depth = reqMarketDepthResponse.getPayload();
 
-
+		assertEquals(initialVersion, depth.getVersion());
 		assertBid(depth.getBidPrice());
 		assertAsk(depth.getAskPrice());
 
 		// Merge
-		for (String diffJson : diffJsons) {
-			MarketDepthDiff marketDepthDiff = fromJson(diffJson,
+		for (int i = 0, l = diffJsons.length; i < l; i++) {
+			MarketDepthDiff marketDepthDiff = fromJson(diffJsons[i],
 					MarketDepthDiff.class);
 			DepthDiff depthDiff = marketDepthDiff.getPayload();
 
 			depth.merge(depthDiff);
 
+			assertEquals(versions[i], depth.getVersion());
 			assertBid(depth.getBidPrice());
 			assertAsk(depth.getAskPrice());
 		}
