@@ -92,6 +92,10 @@ public class HuobiSocket {
 		socket.disconnect();
 	}
 
+	public void reconnect() {
+		socket.reconnect();
+	}
+
 	public void addListener(HuobiSocketListener listener) {
 		listeners.add(listener);
 	}

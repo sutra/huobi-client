@@ -66,6 +66,10 @@ public class HuobiSocketClient {
 		socket.disconnect();
 	}
 
+	public void reconnect() {
+		socket.reconnect();
+	}
+
 	public void addListener(HuobiSocketListener listener) {
 		socket.addListener(listener);
 	}
