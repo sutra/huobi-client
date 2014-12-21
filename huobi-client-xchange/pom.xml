@@ -15,7 +15,7 @@
 	<name>Huobi Client - XChange</name>
 	<description>
 	<![CDATA[
-		Component for <a href="http://xeiam.com/xchange/">XChange compatibility.
+		Component for <a href="http://xeiam.com/xchange/">XChange</a> compatibility.
 	]]></description>
 
 	<dependencies>
