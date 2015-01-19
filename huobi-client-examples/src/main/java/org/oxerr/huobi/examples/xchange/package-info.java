@@ -1,4 +1,4 @@
 /**
- * Demonstration for XChange API.
+ * Demonstrations for XChange API.
  */
 package org.oxerr.huobi.examples.xchange;

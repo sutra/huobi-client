@@ -17,6 +17,7 @@ import com.xeiam.xchange.ExchangeSpecification;
 import com.xeiam.xchange.NotAvailableFromExchangeException;
 import com.xeiam.xchange.NotYetImplementedForExchangeException;
 import com.xeiam.xchange.currency.CurrencyPair;
+import com.xeiam.xchange.dto.marketdata.TradeServiceHelper;
 import com.xeiam.xchange.dto.trade.LimitOrder;
 import com.xeiam.xchange.dto.trade.MarketOrder;
 import com.xeiam.xchange.dto.trade.OpenOrders;
@@ -46,7 +47,7 @@ public class HUOBITradeService extends HUOBITradeServiceRaw implements
 		List<LimitOrder> openOrders = new ArrayList<>();
 		for (CurrencyPair currencyPair : getExchangeSymbols()) {
 			HUOBIOrder[] orders = getHUOBIOrders(coinTypes.get(currencyPair));
-			HUOBIAdapters.adaptOpenOrders(orders, currencyPair);
+			openOrders.addAll(HUOBIAdapters.adaptOpenOrders(orders, currencyPair));
 		}
 		return new OpenOrders(openOrders);
 	}
@@ -125,6 +126,17 @@ public class HUOBITradeService extends HUOBITradeServiceRaw implements
 	 */
 	@Override
 	public TradeHistoryParams createTradeHistoryParams() {
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Map<CurrencyPair, ? extends TradeServiceHelper> getTradeServiceHelperMap()
+			throws ExchangeException, NotAvailableFromExchangeException,
+			NotYetImplementedForExchangeException, IOException {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
