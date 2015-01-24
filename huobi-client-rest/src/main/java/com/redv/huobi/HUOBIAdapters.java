@@ -25,7 +25,6 @@ import com.redv.huobi.dto.marketdata.HUOBITickerObject;
 import com.redv.huobi.dto.marketdata.HUOBITradeObject;
 import com.redv.huobi.dto.trade.HUOBIOrder;
 import com.redv.huobi.dto.trade.HUOBIPlaceOrderResult;
-import com.xeiam.xchange.ExchangeException;
 import com.xeiam.xchange.currency.CurrencyPair;
 import com.xeiam.xchange.dto.Order.OrderType;
 import com.xeiam.xchange.dto.account.AccountInfo;
@@ -35,6 +34,7 @@ import com.xeiam.xchange.dto.marketdata.Trade;
 import com.xeiam.xchange.dto.marketdata.Trades;
 import com.xeiam.xchange.dto.trade.LimitOrder;
 import com.xeiam.xchange.dto.trade.Wallet;
+import com.xeiam.xchange.exceptions.ExchangeException;
 
 /**
  * Various adapters for converting from HUOBI DTOs to XChange DTOs

@@ -14,9 +14,9 @@ import com.xeiam.xchange.dto.marketdata.OrderBook;
 import com.xeiam.xchange.dto.marketdata.Ticker;
 import com.xeiam.xchange.dto.marketdata.Trades;
 import com.xeiam.xchange.dto.trade.OpenOrders;
-import com.xeiam.xchange.service.polling.PollingAccountService;
-import com.xeiam.xchange.service.polling.PollingMarketDataService;
-import com.xeiam.xchange.service.polling.PollingTradeService;
+import com.xeiam.xchange.service.polling.account.PollingAccountService;
+import com.xeiam.xchange.service.polling.marketdata.PollingMarketDataService;
+import com.xeiam.xchange.service.polling.trade.PollingTradeService;
 
 public class Main {
 
