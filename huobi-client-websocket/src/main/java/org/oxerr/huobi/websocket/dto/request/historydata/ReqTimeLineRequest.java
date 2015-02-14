@@ -1,7 +1,5 @@
 package org.oxerr.huobi.websocket.dto.request.historydata;
 
-import java.util.Date;
-
 import org.oxerr.huobi.websocket.dto.request.AbstractSymbolIdRequest;
 
 /**
@@ -9,7 +7,7 @@ import org.oxerr.huobi.websocket.dto.request.AbstractSymbolIdRequest;
  */
 public class ReqTimeLineRequest extends AbstractSymbolIdRequest {
 
-	private Date from, to;
+	private long from, to;
 
 	public ReqTimeLineRequest(int version, String symbolId) {
 		super(version, "reqTimeLine", symbolId);
@@ -18,22 +16,22 @@ public class ReqTimeLineRequest extends AbstractSymbolIdRequest {
 	/**
 	 * @return 开始时间，默认最近300条的时间区间。
 	 */
-	public Date getFrom() {
+	public long getFrom() {
 		return from;
 	}
 
-	public void setFrom(Date from) {
+	public void setFrom(long from) {
 		this.from = from;
 	}
 
 	/**
 	 * @return 结束时间，默认到最新。
 	 */
-	public Date getTo() {
+	public long getTo() {
 		return to;
 	}
 
-	public void setTo(Date to) {
+	public void setTo(long to) {
 		this.to = to;
 	}
 

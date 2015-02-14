@@ -55,7 +55,6 @@
 	</properties>
 
 	<modules>
-		<module>redv</module>
 		<module>huobi-client-rest</module>
 		<module>huobi-client-websocket</module>
 		<module>huobi-client-fix</module>

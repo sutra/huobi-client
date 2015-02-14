@@ -119,8 +119,8 @@ public class HuobiSocketClient {
 
 	public void reqKLine(String symbol, Period period, Date from, Date to) {
 		ReqKLineRequest request = new ReqKLineRequest(VERSION, symbol, period);
-		request.setFrom(from);
-		request.setTo(to);
+		// request.setFrom(from);
+		// request.setTo(to);
 		send(request);
 	}
 
