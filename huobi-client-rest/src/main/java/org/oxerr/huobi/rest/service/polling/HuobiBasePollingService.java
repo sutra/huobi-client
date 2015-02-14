@@ -15,9 +15,6 @@ public class HuobiBasePollingService extends BaseExchangeService implements
 
 	private final List<CurrencyPair> symbols;
 
-	/**
-	 * @param exchangeSpecification
-	 */
 	@SuppressWarnings("unchecked")
 	protected HuobiBasePollingService(Exchange exchange) {
 		super(exchange);
