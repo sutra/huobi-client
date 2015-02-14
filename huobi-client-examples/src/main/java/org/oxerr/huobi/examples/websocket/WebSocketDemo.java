@@ -2,6 +2,7 @@ package org.oxerr.huobi.examples.websocket;
 
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
 import org.oxerr.huobi.websocket.HuobiSocketClient;
@@ -66,8 +67,8 @@ public class WebSocketDemo {
 		// History data API
 		// client.reqTimeLine(btccny);
 		ReqTimeLineRequest req = new ReqTimeLineRequest(1, btccny);
-		req.setFrom(1400000000L);
-		req.setTo(  1400000220L);
+		req.setFrom(Instant.ofEpochMilli(1400000000L));
+		req.setTo(Instant.ofEpochMilli(1400000220L));
 		client.send(req);
 		// client.reqKLine(btccny, Period.KLINE_1MIN, null, null);
 		// client.reqMarketDepthTop(btccny);

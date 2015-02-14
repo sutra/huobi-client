@@ -3,6 +3,7 @@ package org.oxerr.huobi.websocket.dto.response;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.oxerr.huobi.websocket.dto.GsonFactory;
 import org.oxerr.huobi.websocket.dto.response.historydata.ReqKLineResponse;
 import org.oxerr.huobi.websocket.dto.response.historydata.ReqMarketDepthResponse;
 import org.oxerr.huobi.websocket.dto.response.historydata.ReqMarketDepthTopResponse;
@@ -41,11 +42,10 @@ public class ResponseFactory {
 	private final Logger log = LoggerFactory.getLogger(ResponseFactory.class);
 
 	private final Map<String, Class<? extends Response<? extends Payload>>> responseTypes;
-	private final Gson gson;
+	private final Gson gson = GsonFactory.getGson();
 
 	private ResponseFactory() {
 		responseTypes = getResponseTypes();
-		gson = new Gson();
 	}
 
 	private Map<String, Class<? extends Response<? extends Payload>>> getResponseTypes() {

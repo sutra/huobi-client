@@ -1,5 +1,7 @@
 package org.oxerr.huobi.websocket.dto.request.historydata;
 
+import java.time.Instant;
+
 import org.oxerr.huobi.websocket.dto.Period;
 import org.oxerr.huobi.websocket.dto.request.AbstractSymbolIdRequest;
 
@@ -10,7 +12,7 @@ public class ReqKLineRequest extends AbstractSymbolIdRequest {
 
 	private final Period period;
 
-	private long from, to;
+	private Instant from, to;
 
 	/**
 	 * @param version 终端版本
@@ -25,22 +27,22 @@ public class ReqKLineRequest extends AbstractSymbolIdRequest {
 	/**
 	 * @return 开始时间，默认最近300条的时间区间。
 	 */
-	public long getFrom() {
+	public Instant getFrom() {
 		return from;
 	}
 
-	public void setFrom(long from) {
+	public void setFrom(Instant from) {
 		this.from = from;
 	}
 
 	/**
 	 * @return 结束时间，默认到最新。
 	 */
-	public long getTo() {
+	public Instant getTo() {
 		return to;
 	}
 
-	public void setTo(long to) {
+	public void setTo(Instant to) {
 		this.to = to;
 	}
 
