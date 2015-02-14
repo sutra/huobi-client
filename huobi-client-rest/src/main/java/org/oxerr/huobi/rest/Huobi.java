@@ -26,23 +26,23 @@ public interface Huobi {
 
 	@GET
 	@Path("ticker_{symbol}_json.js")
-	public Ticker getTicker(@PathParam("symbol") String symbol)
+	Ticker getTicker(@PathParam("symbol") String symbol)
 			throws IOException;
 
 	@GET
 	@Path("depth_{symbol}_json.js")
-	public Depth getDepth(@PathParam("symbol") String symbol)
+	Depth getDepth(@PathParam("symbol") String symbol)
 			throws IOException;
 
 	@GET
 	@Path("{symbol}_kline_{period}_json.js")
-	public String[][] getKline(
+	String[][] getKline(
 			@PathParam("symbol") String symbol,
 			@PathParam("period") String period) throws IOException;
 
 	@GET
 	@Path("detail_{symbol}_json.js")
-	public OrderBookTAS getDetail(@PathParam("symbol") String symbol)
+	OrderBookTAS getDetail(@PathParam("symbol") String symbol)
 			throws IOException;
 
 	/**
@@ -56,7 +56,7 @@ public interface Huobi {
 	 */
 	@POST
 	@Path("apiv2.php")
-	public AccountInfo getAccountInfo(
+	AccountInfo getAccountInfo(
 		@FormParam("method") String method,
 		@FormParam("access_key") String accessKey,
 		@FormParam("created") long created,
@@ -74,7 +74,7 @@ public interface Huobi {
 	 */
 	@POST
 	@Path("apiv2.php")
-	public Order[] getOrders(
+	Order[] getOrders(
 		@FormParam("method") String method,
 		@FormParam("access_key") String accessKey,
 		@FormParam("coin_type") int coinType,
@@ -94,7 +94,7 @@ public interface Huobi {
 	 */
 	@POST
 	@Path("apiv2.php")
-	public Order getOrder(
+	Order getOrder(
 		@FormParam("method") String method,
 		@FormParam("access_key") String accessKey,
 		@FormParam("coin_type") int coinType,
@@ -116,7 +116,7 @@ public interface Huobi {
 	 */
 	@POST
 	@Path("apiv2.php")
-	public PlaceOrderResult placeLimitOrder(
+	PlaceOrderResult placeLimitOrder(
 		@FormParam("method") String method,
 		@FormParam("access_key") String accessKey,
 		@FormParam("coin_type") int coinType,
@@ -140,7 +140,7 @@ public interface Huobi {
 	 */
 	@POST
 	@Path("apiv2.php")
-	public PlaceOrderResult placeLimitOrder(
+	PlaceOrderResult placeLimitOrder(
 			@FormParam("method") String method,
 			@FormParam("access_key") String accessKey,
 			@FormParam("coin_type") int coinType,
@@ -163,7 +163,7 @@ public interface Huobi {
 	 */
 	@POST
 	@Path("apiv2.php")
-	public PlaceOrderResult placeMarketOrder(
+	PlaceOrderResult placeMarketOrder(
 		@FormParam("method") String method,
 		@FormParam("access_key") String accessKey,
 		@FormParam("coin_type") int coinType,
@@ -185,7 +185,7 @@ public interface Huobi {
 	 */
 	@POST
 	@Path("apiv2.php")
-	public PlaceOrderResult placeMarketOrder(
+	PlaceOrderResult placeMarketOrder(
 			@FormParam("method") String method,
 			@FormParam("access_key") String accessKey,
 			@FormParam("coin_type") int coinType,
@@ -206,7 +206,7 @@ public interface Huobi {
 	 */
 	@POST
 	@Path("apiv2.php")
-	public CancelOrderResult cancelOrder(
+	CancelOrderResult cancelOrder(
 		@FormParam("method") String method,
 		@FormParam("access_key") String accessKey,
 		@FormParam("coin_type") int coinType,
@@ -231,7 +231,7 @@ public interface Huobi {
 	 */
 	@POST
 	@Path("apiv2.php")
-	public PlaceOrderResult modifyOrder(
+	PlaceOrderResult modifyOrder(
 		@FormParam("method") String method,
 		@FormParam("access_key") String accessKey,
 		@FormParam("coin_type") int coinType,
