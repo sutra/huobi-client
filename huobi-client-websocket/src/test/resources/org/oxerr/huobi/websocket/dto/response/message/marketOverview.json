@@ -1,0 +1,16 @@
+{
+	"version":1,
+	"msgType":"marketOverview",
+	"symbolId":"btccny",
+	"payload":{
+		"symbolId":"btccny",
+		"priceNew":2214,
+		"priceOpen":2338.44,
+		"priceHigh":2341.97,
+		"priceLow":2191.24,
+		"priceAsk":2213.95,
+		"priceBid":2213.64,
+		"totalVolume":212459736.82506347,
+		"totalAmount":93652.9105000004
+	}
+}

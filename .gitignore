@@ -3,3 +3,5 @@ target/
 .classpath
 .settings/
 .DS_Store
+/huobi-client-examples/src/main/resources/org/oxerr/huobi/examples/fix/FIX44.xml
+/huobi-client-examples/src/main/resources/org/oxerr/huobi/examples/fix/HuoBiFixCA-Client.keystore

@@ -1,0 +1,9 @@
+{
+	"version":1,
+	"msgType":"reqMsgUnsubscribe",
+	"requestIndex":0,
+	"retCode":200,
+	"retMsg":"",
+	"payload":{
+	}
+}
