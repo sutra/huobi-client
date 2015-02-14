@@ -13,6 +13,7 @@
 	<artifactId>huobi-client-examples</artifactId>
 
 	<name>Huobi Client - Examples</name>
+	<description>Examples demonstrate how to use this library.</description>
 
 	<dependencies>
 		<dependency>
