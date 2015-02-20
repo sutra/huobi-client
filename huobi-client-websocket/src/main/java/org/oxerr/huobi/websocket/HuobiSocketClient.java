@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.oxerr.huobi.websocket.dto.GsonFactory;
 import org.oxerr.huobi.websocket.dto.Percent;
 import org.oxerr.huobi.websocket.dto.Period;
 import org.oxerr.huobi.websocket.dto.request.Request;
@@ -39,7 +40,7 @@ public class HuobiSocketClient {
 	private static final int VERSION = 1;
 
 	private final HuobiSocket socket;
-	private final Gson gson = new Gson();
+	private final Gson gson = GsonFactory.getGson();
 	private final List<ResponseListener> listeners = new ArrayList<>();
 	private final ResponseFactory responseFactory = ResponseFactory
 			.getInstance();
@@ -119,8 +120,8 @@ public class HuobiSocketClient {
 
 	public void reqKLine(String symbol, Period period, Date from, Date to) {
 		ReqKLineRequest request = new ReqKLineRequest(VERSION, symbol, period);
-		request.setFrom(from);
-		request.setTo(to);
+		// request.setFrom(from);
+		// request.setTo(to);
 		send(request);
 	}
 

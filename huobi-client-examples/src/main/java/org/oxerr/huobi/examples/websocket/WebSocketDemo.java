@@ -2,11 +2,12 @@ package org.oxerr.huobi.examples.websocket;
 
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
 import org.oxerr.huobi.websocket.HuobiSocketClient;
 import org.oxerr.huobi.websocket.dto.Percent;
-import org.oxerr.huobi.websocket.dto.Period;
+import org.oxerr.huobi.websocket.dto.request.historydata.ReqTimeLineRequest;
 import org.oxerr.huobi.websocket.dto.request.marketdata.Message;
 import org.oxerr.huobi.websocket.dto.request.marketdata.PushType;
 import org.oxerr.huobi.websocket.dto.response.Response;
@@ -50,6 +51,10 @@ public class WebSocketDemo {
 					if (depth != null) {
 						depth.merge(marketDepthDiff.getPayload());
 						log.info("merged depth: {}", depth);
+						if (marketDepthDiff.getPayload().getBidInsert().getPrice().length > 0
+								|| marketDepthDiff.getPayload().getAskInsert().getPrice().length > 0) {
+							System.exit(0);
+						}
 					}
 				}
 			}
@@ -60,16 +65,20 @@ public class WebSocketDemo {
 		final String btccny = "btccny", ltccny = "ltccny";
 
 		// History data API
-		client.reqTimeLine(btccny);
-		client.reqKLine(btccny, Period.KLINE_1MIN, null, null);
-		client.reqMarketDepthTop(btccny);
-		client.reqMarketDepth(btccny, Percent.PERCENT10);
-		client.reqTradeDetailTop(btccny, 10);
-		client.reqMarketDetail(btccny);
+		// client.reqTimeLine(btccny);
+		ReqTimeLineRequest req = new ReqTimeLineRequest(1, btccny);
+		req.setFrom(Instant.ofEpochMilli(1400000000L));
+		req.setTo(Instant.ofEpochMilli(1400000220L));
+		client.send(req);
+		// client.reqKLine(btccny, Period.KLINE_1MIN, null, null);
+		// client.reqMarketDepthTop(btccny);
+		// client.reqMarketDepth(btccny, Percent.PERCENT10);
+		// client.reqTradeDetailTop(btccny, 10);
+		// client.reqMarketDetail(btccny);
 
 		// Service API
-		client.reqSymbolList(btccny, ltccny);
-		client.reqSymbolDetail(btccny, ltccny);
+		// client.reqSymbolList(btccny, ltccny);
+		// client.reqSymbolDetail(btccny, ltccny);
 
 		Message message = new Message();
 		// message.addLastTimeLine(btccny, PushType.PUSH_LONG);
@@ -80,10 +89,10 @@ public class WebSocketDemo {
 		// message.addTradeDetail(btccny, PushType.PUSH_LONG);
 		// message.addMarketOverview(btccny, PushType.PUSH_LONG);
 
-		client.reqMsgSubscribe(message);
+		// client.reqMsgSubscribe(message);
 
 		TimeUnit.MINUTES.sleep(1);
-		client.reqMsgUnsubscribe(message);
+		// client.reqMsgUnsubscribe(message);
 
 		TimeUnit.SECONDS.sleep(5);
 		client.disconnect();
