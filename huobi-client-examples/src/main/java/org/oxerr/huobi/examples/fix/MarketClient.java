@@ -48,7 +48,7 @@ public class MarketClient {
 
 				String mdReqId = UUID.randomUUID().toString();
 				Message message = buildMarketDataRequest(
-						mdReqId,
+						"btccny" + mdReqId,
 						"BTC/CNY",
 						SubscriptionRequestType.SNAPSHOT_PLUS_UPDATES,
 						100,
